@@ -13,6 +13,7 @@ function ProtectedAdmin({ children }) {
   if (userInfo && userInfo.role!=='admin') {
     return <Navigate to="/" replace={true}></Navigate>;
   }
+  
   return children;
 }
 
