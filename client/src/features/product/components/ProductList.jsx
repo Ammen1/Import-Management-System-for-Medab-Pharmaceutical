@@ -430,6 +430,13 @@ function ProductGrid({ products, status }) {
                         {product.title}
                       </div>
                     </h3>
+                     <p className="text-sm text-gray-700 ">
+                      batch number {product.batchNumber}
+                    </p>
+                    <p className="text-sm text-gray-700">
+                      Expiry Date: {product.expiryDate && product.expiryDate < Date.now() ? "Expired" : product.expiryDate ? new Date(product.expiryDate).toLocaleDateString() : 'Not specified'}
+                      </p>
+
                     <p className="mt-1 text-sm text-gray-500">
                       <StarIcon className="w-6 h-6 inline"></StarIcon>
                       <span className=" align-bottom">{product.rating}</span>
@@ -442,6 +449,7 @@ function ProductGrid({ products, status }) {
                     <p className="text-sm block line-through font-medium text-gray-400">
                       ${product.price}
                     </p>
+
                   </div>
                 </div>
                 {product.deleted && (
