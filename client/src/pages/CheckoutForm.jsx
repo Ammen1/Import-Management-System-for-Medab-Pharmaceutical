@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   PaymentElement,
   useStripe,
@@ -6,6 +6,9 @@ import {
 } from "@stripe/react-stripe-js";
 import { useSelector } from 'react-redux';
 import { selectCurrentOrder } from "../features/order/orderSlice";
+import { Link } from 'react-router-dom';
+import  Footer  from "../features/common/Footer";
+import NavBar from "../features/navbar/Navbar";
 
 export default function CheckoutForm() {
   const stripe = useStripe();
@@ -50,8 +53,6 @@ export default function CheckoutForm() {
     e.preventDefault();
 
     if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
@@ -60,15 +61,10 @@ export default function CheckoutForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        // Make sure to change this to your payment completion page
-        return_url: `https://mern-ecommerce-lyart.vercel.app/order-success/${currentOrder.id}`,
+        return_url: `http://localhost:3000/order-success/${currentOrder.id}`,
       },
     });
 
-    // This point will only be reached if there is an immediate error when
-    // confirming the payment. Otherwise, your customer will be redirected to
-    // your `return_url`. For some payment methods like iDEAL, your customer will
-    // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);
@@ -81,18 +77,38 @@ export default function CheckoutForm() {
 
   const paymentElementOptions = {
     layout: "tabs"
-  }
+  };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
-      <PaymentElement id="payment-element" options={paymentElementOptions} />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
-        <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-        </span>
-      </button>
-      {/* Show any error or success messages */}
-      {message && <div id="payment-message">{message}</div>}
-    </form>
+    <> 
+    {/* <NavBar /> */}
+    <div className="flex flex-col items-center justify-center min-h-screen">
+     
+      <div className="flex-shrink-0 self-center  mt-3">
+        <Link to="/">
+          <img
+            className="h-12 w-auto"
+            src="/logo.png"
+            alt="Your Company"
+          />
+        </Link>
+      </div>
+      <h1 className=" text-lg mt-2">  Medab Pharmaceutical <span className="px-2 py-1  rounded-lg text-3xl font-serif ">& Medical  Equipment Import </span>  and Distributer Company</h1>
+      <form id="payment-form" onSubmit={handleSubmit} className="mt-8   text-white p-4 rounded-md">
+        <PaymentElement id="payment-element" options={paymentElementOptions} />
+        <button disabled={isLoading || !stripe || !elements} id="submit" className="mt-4 bg-white text-black px-4 py-2 rounded-md shadow-md">
+          <span id="button-text">
+            {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+          </span>
+        </button>
+        {/* Show any error or success messages */}
+        {message && <div id="payment-message" className="mt-4">{message}</div>}
+      </form>
+      <div className=" mt-12 w-full">
+      <Footer />
+      </div>
+
+    </div>
+    </>
   );
 }
