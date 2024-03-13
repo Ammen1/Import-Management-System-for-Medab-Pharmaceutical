@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { selectItems } from '../cart/cartSlice';
 import { selectLoggedInUser } from '../auth/authSlice';
 import { selectUserInfo } from '../user/userSlice';
+import { Avatar,  } from 'flowbite-react';
 
 
 const navigation = [
@@ -34,8 +35,8 @@ function NavBar({ children }) {
 
   return (
     <>
-      {userInfo &&<div className="min-h-full">
-        <Disclosure as="nav" className="bg-gray-800">
+      {userInfo &&<div className="min-h-full ">
+        <Disclosure as="nav" className=" bg-slate-900 border-r-2">
           {({ open }) => (
             <>
               <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
@@ -44,8 +45,8 @@ function NavBar({ children }) {
                     <div className="flex-shrink-0">
                       <Link to="/">
                         <img
-                          className="h-8 w-8"
-                          src="/ecommerce.png"
+                          className="h-12 w-auto"
+                          src="/logo.png"
                           alt="Your Company"
                         />
                       </Link>
@@ -81,7 +82,7 @@ function NavBar({ children }) {
                         >
                           <span className="sr-only">View notifications</span>
                           <ShoppingCartIcon
-                            className="h-6 w-6"
+                            className="h-8 w-8"
                             aria-hidden="true"
                           />
                         </button>
@@ -97,11 +98,7 @@ function NavBar({ children }) {
                         <div>
                           <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                             <span className="sr-only">Open user menu</span>
-                            <img
-                              className="h-8 w-8 rounded-full"
-                              src={userInfo.imageUrl}
-                              alt=""
-                            />
+                             <Avatar alt="user" img={userInfo.imageUrl} rounded className="h-6 w-6 rounded-full" />
                           </Menu.Button>
                         </div>
                         <Transition
@@ -194,7 +191,7 @@ function NavBar({ children }) {
                     <Link to="/cart">
                       <button
                         type="button"
-                        className="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                        className="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                       >
                         <ShoppingCartIcon
                           className="h-6 w-6"
@@ -229,7 +226,8 @@ function NavBar({ children }) {
         <header className="bg-white shadow">
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-              E-Commerce
+              Medab Pharmaceutical & Medical 
+
             </h1>
           </div>
         </header>
