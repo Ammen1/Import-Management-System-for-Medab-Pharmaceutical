@@ -30,3 +30,24 @@ export function updateUser(update) {
 }
 
 
+export function fetchAllUsers(sort, pagination) {
+  let queryString = '';
+ 
+  for (let key in sort) {
+   queryString += `${key}=${sort[key]}&`;
+ }
+   for (let key in pagination) {
+     queryString += `${key}=${pagination[key]}&`;
+   }
+ 
+   return new Promise(async (resolve) => {
+     const response = await fetch(
+       '/backend/users/users?' + queryString
+     );
+     const data = await response.json();
+     console.log(data);
+     const totalUsers = await response.headers.get('X-Total-Count');
+     resolve({ data: { users: data, totalUsers: +totalUsers } });
+   });
+ }
+ 
