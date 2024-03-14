@@ -1,7 +1,7 @@
 
 export function createUser(userData) {
   return new Promise(async (resolve) => {
-    const response = await fetch('/backend//auth/signup', {
+    const response = await fetch('/backend/auth/signup', {
       method: 'POST',
       body: JSON.stringify(userData),
       headers: { 'content-type': 'application/json' },
@@ -95,7 +95,7 @@ export function resetPasswordRequest(email) {
 export function resetPassword(data) {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch('/backend//auth/reset-password', {
+      const response = await fetch('/backend/auth/reset-password', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { 'content-type': 'application/json' },
