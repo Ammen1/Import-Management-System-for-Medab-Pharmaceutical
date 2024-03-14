@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Modal from '../../common/Modal';
-// import { useAlert } from 'react-alert';
+import { useAlert } from 'react-alert';
 
 function ProductForm() {
   const {
@@ -28,7 +28,8 @@ function ProductForm() {
   const params = useParams();
   const selectedProduct = useSelector(selectProductById);
   const [openModal, setOpenModal] = useState(null);
-  // const alert = useAlert();
+  const alert = useAlert();
+  
 
   const colors = [
     {
@@ -76,6 +77,11 @@ function ProductForm() {
       setValue('description', selectedProduct.description);
       setValue('price', selectedProduct.price);
       setValue('discountPercentage', selectedProduct.discountPercentage);
+      setValue('regulatoryInfo', selectedProduct.regulatoryInfo);
+      setValue('productSpecifications', selectedProduct.productSpecifications);
+      setValue('safetyInfo', selectedProduct.safetyInfo);
+      setValue('batchNumber', selectedProduct.batchNumber);
+      setValue('expiryDate', selectedProduct.expiryDate);
       setValue('thumbnail', selectedProduct.thumbnail);
       setValue('stock', selectedProduct.stock);
       setValue('image1', selectedProduct.images[0]);
@@ -184,6 +190,107 @@ function ProductForm() {
                         required: 'name is required',
                       })}
                       id="title"
+                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              <div className="sm:col-span-6">
+                <label
+                  htmlFor="title"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  regulatoryInfo
+                </label>
+                <div className="mt-2">
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
+                    <input
+                      type="text"
+                      {...register('regulatoryInfo', {
+                        required: 'regulatory Info is required',
+                      })}
+                      id="regulatoryInfo"
+                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="sm:col-span-6">
+                <label
+                  htmlFor="title"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  product Specifications
+                </label>
+                <div className="mt-2">
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
+                    <input
+                      type="text"
+                      {...register('productSpecifications', {
+                        required: 'product Specifications is required',
+                      })}
+                      id="productSpecifications"
+                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="sm:col-span-6">
+                <label
+                  htmlFor="title"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                safety Info
+                </label>
+                <div className="mt-2">
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
+                    <input
+                      type="text"
+                      {...register('safetyInfo', {
+                        required: 'safety Info is required',
+                      })}
+                      id="safetyInfo"
+                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="sm:col-span-6">
+                <label
+                  htmlFor="title"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                batch Number
+                </label>
+                <div className="mt-2">
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
+                    <input
+                      type="number"
+                      {...register('batchNumber', {
+                        required: 'batch Number is required',
+                      })}
+                      id="batchNumber"
+                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="sm:col-span-6">
+                <label
+                  htmlFor="title"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                expiryDate
+                </label>
+                <div className="mt-2">
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
+                    <input
+                      type="date"
+                      {...register('expiryDate', {
+                        required: 'batch Number is required',
+                      })}
+                      id="expiryDate"
                       className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                     />
                   </div>
