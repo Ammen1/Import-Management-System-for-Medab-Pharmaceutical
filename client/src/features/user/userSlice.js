@@ -3,6 +3,7 @@ import {
   fetchLoggedInUserOrders,
   updateUser,
   fetchLoggedInUser,
+  fetchAllUsers,
 } from './userAPI';
 
 const initialState = {
@@ -39,6 +40,14 @@ export const updateUserAsync = createAsyncThunk(
   }
 );
 
+export const fetchAllUsersAsync = createAsyncThunk(
+  'backend/users/users/fetchAllUser',
+  async ({sort, pagination}) => {
+    const response = await fetchAllUsers(sort,pagination);
+    return response.data
+  }
+)
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -51,6 +60,14 @@ export const userSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(fetchLoggedInUserOrderAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.userInfo.orders = action.payload;
+
+      })
+      .addCase(fetchAllUsersAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchAllUsersAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.userInfo.orders = action.payload;
 
@@ -77,7 +94,9 @@ export const userSlice = createSlice({
 export const selectUserOrders = (state) => state.user.userInfo.orders;
 export const selectUserInfo = (state) => state.user.userInfo;
 export const selectUserInfoStatus = (state) => state.user.status;
+export const selectUsers = (state) => state.user.status;
+export const selectTotalUsers = (state) => state.user.totalUsers;
 
-// export const { increment } = userSlice.actions;
+export const { increment } = userSlice.actions;
 
 export default userSlice.reducer;
