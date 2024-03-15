@@ -16,13 +16,13 @@ const initialState = {
   userChecked: false,
   mailSent: false,
   passwordReset:false
+  
 };
 
 export const createUserAsync = createAsyncThunk(
   'backend/user/createUser',
   async (userData) => {
     const response = await createUser(userData);
-    // The value we return becomes the `fulfilled` action payload
     return response.data;
   }
 );
