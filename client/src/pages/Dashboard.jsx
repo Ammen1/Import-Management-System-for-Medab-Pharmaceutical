@@ -7,6 +7,9 @@ import DashboardComp from '../Components/DashboardComp';
 import DashSidebar from '../Components/DashSidebar';
 import Products from '../Components/Products';
 import Orders from '../Components/Orders';
+import AddUsers from '../Components/AddUsers';
+import AddProduct from '../Components/AddProduct';
+import ProductTable from '../Components/ProductTable';
 
 export default function Dashboard() {
   const location = useLocation();
@@ -30,6 +33,10 @@ export default function Dashboard() {
       {tab === 'dash' && <DashboardComp />}
       {tab === 'products' && <Products />}
       {tab === 'orders' && <Orders />}
+      {tab==='addusers' && <AddUsers />}
+      {tab==='add-product' && <AddProduct />}
+      {tab==='productable' && <ProductTable />}
+      
     </div>
   );
 }
