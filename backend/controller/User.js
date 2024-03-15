@@ -12,15 +12,6 @@ exports.fetchUserById = async (req, res) => {
   }
 };
 
-// exports.fechUser = async (req, res) => {
-//   try {
-//     const users = await User.find();
-//     res.status(200).json(users);
-//   } catch (error){
-//     res.status(400).json(err);
-//   }
-//   };
-
 exports.updateUser = async (req, res) => {
   const { id } = req.params;
   try {
@@ -41,3 +32,33 @@ exports.fetchUser = async (req, res) => {
   }
 };
 
+
+// Controller function to add a new user based on the role
+exports.addUser = async (req, res) => {
+  const { email, password, role, name } = req.body;
+
+  try {
+    // Check if the role is valid
+    const validRoles = ['Distributers', 'Manager', 'Suppliers'];
+    if (!validRoles.includes(role)) {
+      return res.status(400).json({ error: 'Invalid role' });
+    }
+
+    // Create a new user object
+    const newUser = new User({
+      email,
+      password, // Assuming the password is already hashed before sending it here
+      role,
+      name
+    });
+
+    // Save the new user to the database
+    await newUser.save();
+
+    // Respond with success message
+    res.status(201).json({ message: 'User created successfully' });
+  } catch (error) {
+    console.error('Error adding user:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
