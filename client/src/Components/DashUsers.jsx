@@ -27,8 +27,6 @@ export default function DashUsers() {
 
   // Function to handle user deletion
   const handleDeleteUser = () => {
-    // Implement logic to delete the user
-    // Once the user is deleted, you may want to close the modal
     setShowModal(false);
   };
 
