@@ -26,13 +26,16 @@ exports.createUser = async (req, res) => {
           return res.status(500).json({ error: 'Internal server error' });
         }
 
+        // Extract role from the request body
+        const { email, role, name } = req.body;
+
         // Create a new user with the hashed password and salt
         const user = new User({
-          email: req.body.email,
+          email,
           password: hashedPassword,
           salt,
-          role: 'user', // Assuming a default role for new users
-          name: req.body.name,
+          role, // Use the role provided in the request body
+          name,
         });
 
         try {
@@ -64,6 +67,7 @@ exports.createUser = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
 
 
 exports.loginUser = async (req, res) => {
@@ -137,7 +141,7 @@ exports.resetPassword = async (req, res) => {
         user.password = hashedPassword;
         user.salt = salt;
         await user.save();
-        const subject = 'password successfully reset for e-commerce';
+        const subject = 'password successfully reset';
         const html = `<p>Successfully able to Reset Password</p>`;
         if (email) {
           const response = await sendMail({ to: email, subject, html });

@@ -60,8 +60,6 @@ exports.fetchOrdersByUser = async (req, res) => {
   };
 
   exports.fetchAllOrders = async (req, res) => {
-    // sort = {_sort:"price",_order="desc"}
-    // pagination = {_page:1,_limit=10}
     let query = Order.find({deleted:{$ne:true}});
     let totalOrdersQuery = Order.find({deleted:{$ne:true}});
   
