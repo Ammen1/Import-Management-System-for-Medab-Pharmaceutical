@@ -75,15 +75,15 @@ function AdminOrders() {
   }, [dispatch, page, sort]);
 
   return (
-    <div className="overflow-x-auto">
+    <div className=" table-auto lg:mt-20 lg:ml-8">
       <div className="bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
         <div className="w-full">
-          <div className="bg-white shadow-md rounded my-6">
+          <div className="bg-white shadow-md rounded ">
             <table className="w-full table-auto">
               <thead>
-                <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                <tr className=" bg-slate-500 shadow-white text-black uppercase text-sm leading-normal">
                   <th
-                    className="py-3 px-0 text-left cursor-pointer"
+                    className="py-1 px-0 text-left cursor-pointer"
                     onClick={(e) =>
                       handleSort({
                         sort: 'id',
@@ -91,7 +91,7 @@ function AdminOrders() {
                       })
                     }
                   >
-                    Order#{' '}
+                    Order{' '}
                     {sort._sort === 'id' &&
                       (sort._order === 'asc' ? (
                         <ArrowUpIcon className="w-4 h-4 inline"></ArrowUpIcon>
@@ -99,9 +99,9 @@ function AdminOrders() {
                         <ArrowDownIcon className="w-4 h-4 inline"></ArrowDownIcon>
                       ))}
                   </th>
-                  <th className="py-3 px-0 text-left">Items</th>
+                  <th className="py-1 px-0 text-left">Items</th>
                   <th
-                    className="py-3 px-0 text-left cursor-pointer"
+                    className="py-1 px-0 text-left cursor-pointer"
                     onClick={(e) =>
                       handleSort({
                         sort: 'totalAmount',
@@ -117,10 +117,10 @@ function AdminOrders() {
                         <ArrowDownIcon className="w-4 h-4 inline"></ArrowDownIcon>
                       ))}
                   </th>
-                  <th className="py-3 px-0 text-center">Shipping Address</th>
-                  <th className="py-3 px-0 text-center">Order Status</th>
-                  <th className="py-3 px-0 text-center">Payment Method</th>
-                  <th className="py-3 px-0 text-center">Payment Status</th>
+                  <th className="py-2 px-0 text-center">Shipping Address</th>
+                  <th className="py-2 px-0 text-center">Order Status</th>
+                  <th className="py-2 px-0 text-center">Payment Method</th>
+                  <th className="py-2 px-0 text-center">Payment Status</th>
                   <th
                     className="py-3 px-0 text-left cursor-pointer"
                     onClick={(e) =>
@@ -164,12 +164,14 @@ function AdminOrders() {
                     key={order.id}
                     className="border-b border-gray-200 hover:bg-gray-100"
                   >
-                    <td className="py-3 px-0 text-left whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="mr-2"></div>
-                        <span className="font-medium">{order.id}</span>
-                      </div>
-                    </td>
+                  <td className="py-3 px-0 text-left whitespace-nowrap">
+                  <div className="flex items-center">
+                    <div className="mr-2"></div>
+                    <span className="font-medium">{order.id.toString().substring(0, 10)}</span>
+                  </div>
+                </td>
+
+
                     <td className="py-3 px-0 text-left">
                       {order.items.map((item, index) => (
                         <div key={index} className="flex items-center">
@@ -199,9 +201,7 @@ function AdminOrders() {
                         </div>
                         <div>{order.selectedAddress.street},</div>
                         <div>{order.selectedAddress.city}, </div>
-                        <div>{order.selectedAddress.state}, </div>
-                        <div>{order.selectedAddress.pinCode}, </div>
-                        <div>{order.selectedAddress.phone}, </div>
+  
                       </div>
                     </td>
                     <td className="py-3 px-0 text-center">
@@ -265,13 +265,13 @@ function AdminOrders() {
                       <div className="flex item-center justify-center">
                         <div className="w-6 mr-4 transform hover:text-purple-500 hover:scale-120">
                           <EyeIcon
-                            className="w-8 h-8"
+                            className="w-4 h-4"
                             onClick={(e) => handleShow(order)}
                           ></EyeIcon>
                         </div>
                         <div className="w-6 mr-2 transform hover:text-purple-500 hover:scale-120">
                           <PencilIcon
-                            className="w-8 h-8"
+                            className="w-4 h-4"
                             onClick={(e) => handleEdit(order)}
                           ></PencilIcon>
                         </div>
