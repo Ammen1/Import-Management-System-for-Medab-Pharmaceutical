@@ -41,3 +41,25 @@ export function fetchAllUsers() {
    });
  }
  
+
+ export function deleteUser(userId) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(
+        `/backend/users/users${userId}`,
+        {
+          method: 'DELETE'
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to delete user');
+      }
+
+      resolve({ message: 'User deleted successfully' });
+    } catch (error) {
+      reject({ error: error.message });
+    }
+  });
+}
