@@ -10,7 +10,7 @@ import {
 import { useParams } from 'react-router-dom';
 import { addToCartAsync, selectItems } from '../../cart/cartSlice';
 import { selectLoggedInUser } from '../../auth/authSlice';
-// import { useAlert } from 'react-alert';
+import { useAlert } from 'react-alert';
 import { Grid } from 'react-loader-spinner';
 
 
@@ -26,7 +26,7 @@ export default function ProductDetail() {
   const product = useSelector(selectProductById);
   const dispatch = useDispatch();
   const params = useParams();
-  // const alert = useAlert();
+  const alert = useAlert();
   const status = useSelector(selectProductListStatus);
 
   const handleCart = (e) => {

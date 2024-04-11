@@ -10,6 +10,7 @@ import Orders from '../Components/Orders';
 import AddUsers from '../Components/AddUsers';
 import AddProduct from '../Components/AddProduct';
 import ProductTable from '../Components/ProductTable';
+import ProductForm from '../features/admin/components/ProductForm';
 
 export default function Dashboard() {
   const location = useLocation();
@@ -36,6 +37,7 @@ export default function Dashboard() {
       {tab==='addusers' && <AddUsers />}
       {tab==='add-product' && <AddProduct />}
       {tab==='productable' && <ProductTable />}
+      {tab==='edit' && <ProductForm/>}
       
     </div>
   );
