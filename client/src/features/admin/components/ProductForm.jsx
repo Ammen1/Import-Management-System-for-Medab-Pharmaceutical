@@ -163,7 +163,7 @@ function ProductForm() {
           }
         })}
       >
-        <div className="space-y-8 bg-white p-10 lg:ml-64 ">
+        <div className="space-y-4 bg-white p-10 lg:ml-64 ">
           <div className="border-b border-gray-900/10 pb-12">
             <div className="text-base p-2 font-semibold leading-7">
               Add Product

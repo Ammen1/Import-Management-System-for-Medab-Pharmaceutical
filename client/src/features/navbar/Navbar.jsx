@@ -11,18 +11,20 @@ import { selectItems } from '../cart/cartSlice';
 import { selectLoggedInUser } from '../auth/authSlice';
 import { selectUserInfo } from '../user/userSlice';
 import { Avatar,  } from 'flowbite-react';
+import ProtectedSuppliers from '../auth/components/ProtectedSuppliers';
 
 
 const navigation = [
   { name: 'Products', link: '/', user: true },
-  { name: 'Products', link: '/admin', admin: true },
-  { name: 'Orders', link: '/admin/orders', admin: true },
+  { name: 'Products', link: '/dashboard?tab=products', supplier: true },
+  { name: 'Dashboard', link: '/dashboard', supplier: true },
 
 ];
 const userNavigation = [
   { name: 'My Profile', link: '/profile' },
   { name: 'My Orders', link: '/my-orders' },
   { name: 'Sign out', link: '/logout' },
+  { name: 'Address', link: '/profile' },
 ];
 
 function classNames(...classes) {
@@ -35,8 +37,8 @@ function NavBar({ children }) {
 
   return (
     <>
-      {userInfo &&<div className="min-h-full ">
-        <Disclosure as="nav" className=" bg-slate-900 border-r-2">
+      {userInfo &&<div className="min-h-full  ">
+        <Disclosure as="nav" className=" bg-slate-950 border-r-2 ">
           {({ open }) => (
             <>
               <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
@@ -73,22 +75,23 @@ function NavBar({ children }) {
                       </div>
                     </div>
                   </div>
-                  <div className="hidden md:block">
-                    <div className="ml-4 flex items-center md:ml-6">
+                  <div className=" hidden md:block">
+                    <div className="ml-4 p-4 flex items-center md:ml-6">
                       <Link to="/cart">
                         <button
                           type="button"
                           className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                         >
                           <span className="sr-only">View notifications</span>
-                          <ShoppingCartIcon
-                            className="h-8 w-8"
-                            aria-hidden="true"
-                          />
+                          <img
+                          className="h-10 w-auto mr-2"
+                          src="/log.png"
+                          alt="Your Company"
+                        />
                         </button>
                       </Link>
                       {items.length > 0 && (
-                        <span className="inline-flex items-center rounded-md mb-7 -ml-3 bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
+                        <span className="inline-flex mr-5 items-center rounded-md mb-7 -ml-3 bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
                           {items.length}
                         </span>
                       )}
