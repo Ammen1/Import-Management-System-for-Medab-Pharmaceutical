@@ -31,6 +31,23 @@ exports.fetchUser = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+exports.deleteUser = async (req, res) => {
+  try {
+    const id = req.params.id; // Extract the user ID from the request parameters
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    await User.deleteOne({ _id: id }); // Delete the user document using deleteOne method
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+
 
 
 // Controller function to add a new user based on the role
