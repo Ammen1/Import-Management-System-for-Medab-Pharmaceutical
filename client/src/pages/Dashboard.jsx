@@ -11,6 +11,11 @@ import AddUsers from '../Components/AddUsers';
 import AddProduct from '../Components/AddProduct';
 import ProductTable from '../Components/ProductTable';
 import ProductForm from '../features/admin/components/ProductForm';
+import Signup from '../features/auth/components/Signup';
+import ProductList from '../features/product/components/ProductList';
+import UserOrdersPage from './UserOrdersPage';
+import SuppliersAndDistributers from '../Components/SuppliersAndDistributers';
+import DashSuppliers from '../Components/DashSuppliers';
 
 export default function Dashboard() {
   const location = useLocation();
@@ -37,8 +42,11 @@ export default function Dashboard() {
       {tab==='addusers' && <AddUsers />}
       {tab==='add-product' && <AddProduct />}
       {tab==='productable' && <ProductTable />}
-      {tab==='edit' && <ProductForm/>}
-      
+      {tab==='add-users' && <AddUsers/>}
+      {tab==='list-product' && <ProductList/>}
+      {tab==='my-orders' && <UserOrdersPage/>}
+      {tab==='suppliers-and-distributers' && <SuppliersAndDistributers />}
+      {tab==='manage' && <DashSuppliers />}
     </div>
   );
 }
