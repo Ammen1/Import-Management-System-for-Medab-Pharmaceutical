@@ -1,4 +1,4 @@
-import { Sidebar, Navbar } from 'flowbite-react';
+import { Sidebar } from 'flowbite-react';
 import {
   HiUser,
   HiArrowSmRight,
@@ -6,19 +6,18 @@ import {
   HiOutlineUserGroup,
   HiAnnotation,
   HiChartPie,
+  HiPlus,
 } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { selectLoggedInUser } from '../features/auth//authSlice';
+import { selectLoggedInUser } from '../features/auth/authSlice';
 import { selectUserInfo } from '../features/user/userSlice';
 import Header from './Header';
 
-
 export default function DashSidebar() {
-  
   const location = useLocation();
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserInfo);
@@ -48,15 +47,16 @@ export default function DashSidebar() {
     }
   };
 
-  return (
-    <>
-    <div className=' w-screen -translate-x-4 fixed '><Header /></div>
-    
-    <Sidebar className='w-full md:w-56 lg:fixed mt-16 '>
+  // Function to render sidebar items based on user's role
+  const renderSidebarItems = () => {
+    if (!userInfo) return null;
 
-      <Sidebar.Items>
-        <Sidebar.ItemGroup className='flex flex-col gap-1'>
-          {userInfo && userInfo.role === 'admin' &&  (
+    const role = userInfo.role;
+
+    switch (role) {
+      case 'admin':
+        return (
+          <>
             <Link to='/dashboard?tab=dash'>
               <Sidebar.Item
                 active={tab === 'dash' || !tab}
@@ -66,97 +66,267 @@ export default function DashSidebar() {
                 Dashboard
               </Sidebar.Item>
             </Link>
-          )}
-          <Link to='/dashboard?tab=profile'>
+            <Link to='/dashboard?tab=profile'>
+              <Sidebar.Item
+                active={tab === 'profile'}
+                icon={HiUser}
+                label='Admin'
+                labelColor='dark'
+                as='div'
+              >
+                Profile
+              </Sidebar.Item>
+            </Link>
+            {/* Add other admin-related sidebar items here */}
+            <Link to='/dashboard?tab=add-users'>
+              <Sidebar.Item
+                active={tab === 'add-users'}
+                icon={HiAnnotation}
+                as='div'
+              >
+                Create Account
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=users'>
+              <Sidebar.Item
+                active={tab === 'users'}
+                icon={HiAnnotation}
+                as='div'
+              >
+               Manager 
+              </Sidebar.Item>
+            </Link>
+           
+            <Link to='/dashboard?tab=comments'>
+              <Sidebar.Item
+                active={tab === 'comments'}
+                icon={HiAnnotation}
+                as='div'
+              >
+                Message 
+              </Sidebar.Item>
+            </Link>
+          </>
+        );
+      case 'manager':
+        return (
+          <>
+            <Link to='/dashboard?tab=dash'>
+              <Sidebar.Item
+                active={tab === 'dash' || !tab}
+                icon={HiChartPie}
+                as='div'
+              >
+                Dashboard
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=profile'>
+              <Sidebar.Item
+                active={tab === 'profile'}
+                icon={HiUser}
+                label='Manager'
+                labelColor='dark'
+                as='div'
+              >
+                Profile
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=my-orders'>
+              <Sidebar.Item
+                active={tab === 'my-orders'}
+                icon={HiAnnotation}
+                as='div'
+              >
+               Order item
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=add-product'>
+              <Sidebar.Item
+                active={tab === 'add-product'}
+                icon={HiPlus}
+                as='div'
+              >
+                Add Product 
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=suppliers-and-distributers'>
+              <Sidebar.Item
+                active={tab === 'suppliers-and-distributers'}
+                icon={HiPlus}
+                as='div'
+              >
+              Add Supplier
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=list-product'>
+              <Sidebar.Item
+                active={tab === 'list-product'}
+                icon={HiAnnotation}
+                as='div'
+              >
+               View product
+              </Sidebar.Item>
+            </Link>
+           
+            <Link to='/dashboard?tab=manage'>
+              <Sidebar.Item
+                active={tab === 'manage'}
+                icon={HiAnnotation}
+                as='div'
+              >
+                Manage supplier
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=generate'>
+              <Sidebar.Item
+                active={tab === 'orders'}
+                icon={HiAnnotation}
+                as='div'
+              >
+              Generate report
+              </Sidebar.Item>
+            </Link>
+          </>
+        );
+      case 'distributor':
+        return (
+          <>
+            <Link to='/dashboard?tab=dash'>
+              <Sidebar.Item
+                active={tab === 'dash' || !tab}
+                icon={HiChartPie}
+                as='div'
+              >
+                Dashboard
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=profile'>
+              <Sidebar.Item
+                active={tab === 'profile'}
+                icon={HiUser}
+                label='Distrubutor'
+                labelColor='dark'
+                as='div'
+              >
+                Profile
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=my-orders'>
+              <Sidebar.Item
+                active={tab === 'my-orders'}
+                icon={HiAnnotation}
+                as='div'
+              >
+               Order item
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=list-product'>
+              <Sidebar.Item
+                active={tab === 'list-product'}
+                icon={HiAnnotation}
+                as='div'
+              >
+               View product
+              </Sidebar.Item>
+            </Link>
+           
+            <Link to='/dashboard?tab=comments'>
+              <Sidebar.Item
+                active={tab === 'comments'}
+                icon={HiAnnotation}
+                as='div'
+              >
+                View massage
+              </Sidebar.Item>
+            </Link>
+          </>
+        );  
+
+      case 'supplier':
+        return (
+          <>
+            <Link to='/dashboard?tab=profile'>
+              <Sidebar.Item
+                active={tab === 'profile'}
+                icon={HiUser}
+                label='Supplier'
+                labelColor='dark'
+                as='div'
+              >
+                Profile
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=add-product'>
+              <Sidebar.Item
+                active={tab === 'add-product'}
+                icon={HiAnnotation}
+                as='div'
+              >
+                Add Product 
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=products'>
+              <Sidebar.Item
+                active={tab === 'products'}
+                icon={HiAnnotation}
+                as='div'
+              >
+                Product 
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=message'>
+              <Sidebar.Item
+                active={tab === 'message'}
+                icon={HiAnnotation}
+                as='div'
+              >
+                View message
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=orders'>
+              <Sidebar.Item
+                active={tab === 'orders'}
+                icon={HiAnnotation}
+                as='div'
+              >
+              View order
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=table-product'>
+              <Sidebar.Item
+                active={tab === 'table-product'}
+                icon={HiAnnotation}
+                as='div'
+              >
+               View product
+              </Sidebar.Item>
+            </Link>
+        
+          </>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <>
+      <div className=' w-screen -translate-x-4 fixed '><Header /></div>
+      <Sidebar className='w-full md:w-56 lg:fixed mt-16 '>
+        <Sidebar.Items>
+          <Sidebar.ItemGroup className='flex flex-col gap-1'>
+            {/* Render sidebar items based on user's role */}
+            {renderSidebarItems()}
             <Sidebar.Item
-              active={tab === 'profile'}
-              icon={HiUser}
-              label={(userInfo && userInfo.role === 'admin') ? 'Admin' : 'User'}
-              labelColor='dark'
-              as='div'
+              icon={HiArrowSmRight}
+              className='cursor-pointer'
+              onClick={handleSignout}
             >
-              Profile
+              Sign Out
             </Sidebar.Item>
-          </Link>
-          {(userInfo && userInfo.role === 'admin') && (
-            <>
-              <Link to='/dashboard?tab=productable'>
-                <Sidebar.Item
-                  active={tab === 'productable'}
-                  icon={HiDocumentText}
-                  as='div'
-                >
-                Products Table
-                </Sidebar.Item>
-              </Link>
-              <Link to='/dashboard?tab=users'>
-                <Sidebar.Item
-                  active={tab === 'users'}
-                  icon={HiOutlineUserGroup}
-                  as='div'
-                >
-                  Users
-                </Sidebar.Item>
-              </Link>
-              <Link to='/dashboard?tab=addusers'>
-                <Sidebar.Item
-                  active={tab === 'addusers'}
-                  icon={HiOutlineUserGroup}
-                  as='div'
-                >
-                Add Users
-                </Sidebar.Item>
-              </Link>
-              <Link to='/dashboard?tab=orders'>
-                <Sidebar.Item
-                  active={tab === 'orders'}
-                  icon={HiAnnotation}
-                  as='div'
-                >
-                  Order 
-                </Sidebar.Item>
-              </Link>
-              <Link to='/dashboard?tab=products'>
-                <Sidebar.Item
-                  active={tab === 'products'}
-                  icon={HiAnnotation}
-                  as='div'
-                >
-                  Product 
-                </Sidebar.Item>
-                
-              </Link>
-              <Link to='/dashboard?tab=add-product'>
-                <Sidebar.Item
-                  active={tab === 'add-product'}
-                  icon={HiAnnotation}
-                  as='div'
-                >
-                  Add Product 
-                </Sidebar.Item>
-                
-              </Link>
-              <Link to='/dashboard?tab=comments'>
-                <Sidebar.Item
-                  active={tab === 'comments'}
-                  icon={HiAnnotation}
-                  as='div'
-                >
-                   Content 
-                </Sidebar.Item>
-              </Link>
-            </>
-          )}
-          <Sidebar.Item
-            icon={HiArrowSmRight}
-            className='cursor-pointer'
-            onClick={handleSignout}
-          >
-            Sign Out
-          </Sidebar.Item>
-        </Sidebar.ItemGroup>
-      </Sidebar.Items>
-    </Sidebar>
+          </Sidebar.ItemGroup>
+        </Sidebar.Items>
+      </Sidebar>
     </>
   );
 }
