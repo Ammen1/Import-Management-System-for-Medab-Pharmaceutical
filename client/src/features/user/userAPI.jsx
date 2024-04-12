@@ -42,13 +42,14 @@ export function fetchAllUsers() {
  }
  
 
- export function deleteUser(userId) {
+ export function deleteUser(id) {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await fetch(
-        `/backend/users/users${userId}`,
+        `/backend/users/users/${id}`,
         {
-          method: 'DELETE'
+          method: 'DELETE',
+        
         }
       );
 

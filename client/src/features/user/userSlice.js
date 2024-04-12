@@ -59,8 +59,8 @@ export const fetchAllUsersAsync = createAsyncThunk(
 
 export const deleteUserAsync = createAsyncThunk(
   'backend/users/users/deleteUser',
-  async (userId) => {
-    const response = await  deleteUser(userId);
+  async (id) => {
+    const response = await  deleteUser(id);
     return response.data
     } 
   
