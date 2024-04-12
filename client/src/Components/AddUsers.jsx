@@ -19,12 +19,13 @@ export default function AddUsers() {
 
   const onSubmit = async (data) => {
     await dispatch(createUserAsync({
+      name: data.name,
       email: data.email,
       password: data.password,
       addresses: [],
       role: data.role, // If role is not provided, default to 'user'
     }));
-    history('/dashboard?tab=dash');
+    history('/dashboard?tab=users');
   };
 
   return (
@@ -46,7 +47,29 @@ export default function AddUsers() {
             noValidate
             className="space-y-6"
             onSubmit={handleSubmit(onSubmit)}
+            
           >
+            <div>
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Name
+              </label>
+              <div className="mt-2">
+                <input
+                  id="name"
+                  {...register('name', {
+                    required: 'Name is required',
+                  })}
+                  type="text"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                {errors.name && (
+                  <p className="text-red-500">{errors.name.message}</p>
+                )}
+              </div>
+            </div>
             <div>
               <label
                 htmlFor="email"
@@ -145,9 +168,8 @@ export default function AddUsers() {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 >
                   <option value="">Select a role</option>
-                  <option value="Distributers">Distributers</option>
-                  <option value="Manager">Manager</option>
-                  <option value="Suppliers">Suppliers</option>
+                  <option value="manager">manager</option>
+                
                 </select>
                 {errors.role && (
                   <p className="text-red-500">{errors.role.message}</p>
