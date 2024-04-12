@@ -28,6 +28,7 @@ import {
 import { ITEMS_PER_PAGE } from '../../../app/constants';
 import Pagination from '../../common/Pagination';
 import { Grid } from 'react-loader-spinner';
+import { selectUserInfo } from '../../user/userSlice';
 
 const sortOptions = [
   { name: 'Best Rating', sort: 'rating', order: 'desc', current: false },
@@ -46,6 +47,7 @@ export default function ProductList() {
   const categories = useSelector(selectCategories);
   const totalItems = useSelector(selectTotalItems);
   const status = useSelector(selectProductListStatus);
+  const userInfo = useSelector(selectUserInfo);
   const filters = [
     {
       id: 'category',
@@ -395,7 +397,7 @@ function DesktopFilter({ handleFilter, filters }) {
   );
 }
 
-function ProductGrid({ products, status }) {
+function ProductGrid({ products, status, userInfo }) {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
@@ -430,17 +432,22 @@ function ProductGrid({ products, status }) {
                         {product.title}
                       </div>
                     </h3>
-                     <p className="text-sm text-gray-700 ">
+                    <p className="text-sm text-gray-700">
                       batch number {product.batchNumber}
                     </p>
                     <p className="text-sm text-gray-700">
                       Expiry Date: {product.expiryDate && product.expiryDate < Date.now() ? "Expired" : product.expiryDate ? new Date(product.expiryDate).toLocaleDateString() : 'Not specified'}
-                      </p>
-
+                    </p>
                     <p className="mt-1 text-sm text-gray-500">
                       <StarIcon className="w-6 h-6 inline"></StarIcon>
                       <span className=" align-bottom">{product.rating}</span>
                     </p>
+                    {/* Display the user's name */}
+                    <p className="mt-1 text-sm text-gray-700">
+                      Posted by: {product.user}
+                    </p>
+                    
+                   
                   </div>
                   <div>
                     <p className="text-sm block font-medium text-gray-900">
@@ -449,7 +456,6 @@ function ProductGrid({ products, status }) {
                     <p className="text-sm block line-through font-medium text-gray-400">
                       ${product.price}
                     </p>
-
                   </div>
                 </div>
                 {product.deleted && (
@@ -465,6 +471,7 @@ function ProductGrid({ products, status }) {
               </div>
             </Link>
           ))}
+          
         </div>
       </div>
     </div>

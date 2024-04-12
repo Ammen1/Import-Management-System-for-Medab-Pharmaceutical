@@ -47,7 +47,7 @@ export default function Header() {
   };
 
   return (
-    <Navbar className='border-b-2 p-2 '>
+    <Navbar className='border-b-2 p-4 '>
       <Link
         to='/'
         className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'
@@ -57,29 +57,8 @@ export default function Header() {
         </span>
         Pharmaceutical 
       </Link>
-      <form onSubmit={handleSubmit}>
-        <TextInput
-          type='text'
-          placeholder='Search...'
-          rightIcon={AiOutlineSearch}
-          className='hidden lg:inline dark:bg-black'
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          
-        />
-      </form>
-      <Button className='w-12 h-10 lg:hidden' color='gray' pill>
-        <AiOutlineSearch />
-      </Button>
       <div className='flex gap-2 md:order-2'>
-        <Button
-          className='w-12 h-12 hidden sm:inline border rounded-full'
-          color='black'
-          pill
-          // onClick={() => dispatch(toggleTheme())}
-        >
-          {userSlice === true ? <FaSun /> : <FaMoon />}
-        </Button>
+       
     
       </div>
         </Navbar>

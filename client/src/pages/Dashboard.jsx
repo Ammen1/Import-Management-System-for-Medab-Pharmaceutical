@@ -47,6 +47,7 @@ export default function Dashboard() {
       {tab==='my-orders' && <UserOrdersPage/>}
       {tab==='suppliers-and-distributers' && <SuppliersAndDistributers />}
       {tab==='manage' && <DashSuppliers />}
+      {tab==='table-product' && <ProductTable />}
     </div>
   );
 }

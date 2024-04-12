@@ -1,19 +1,17 @@
-import { Modal, Table, Button } from 'flowbite-react';
+import { Modal, Table, Button, TextInput, Select } from 'flowbite-react';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
-import { FaCheck, FaTimes } from 'react-icons/fa';
-
-import { selectUserInfo, selectUsers } from '../features/user/userSlice';
-import { fetchAllUsersAsync } from '../features/user/userSlice';
-import { useDispatch } from 'react-redux';
+import { deleteUserAsync, fetchAllUsersAsync, selectUserInfo, selectUsers, updateUserAsync } from '../features/user/userSlice';
+import { Link } from 'react-router-dom'; // Import Link for navigation
 
 export default function DashUsers() {
   const userInfo = useSelector(selectUserInfo);
   const [page, setPage] = useState(1);
-  const [showModal, setShowModal] = useState(false); // Define showModal state
+  const [showModal, setShowModal] = useState(false);
+  const [editedUser, setEditedUser] = useState(null); // State to store the edited user
   const dispatch = useDispatch();
-  const users = useSelector(selectUsers) 
+  const users = useSelector(selectUsers);
   const [sort, setSort] = useState({});
 
   const handlePage = (page) => {
@@ -25,9 +23,20 @@ export default function DashUsers() {
     setSort(sort);
   };
 
-  // Function to handle user deletion
-  const handleDeleteUser = () => {
-    setShowModal(false);
+  const handleDeleteUser = (id) => {
+    dispatch(deleteUserAsync(id));
+    setShowModal(false); // Close the modal after deleting the user
+  };
+
+  const handleEditUser = (user) => {
+    setEditedUser(user); // Set the selected user for editing
+    setShowModal(true); // Open the modal for editing
+  };
+
+  const handleUpdateUser = (e) => {
+    e.preventDefault();
+    dispatch(updateUserAsync(editedUser));
+    setShowModal(false); // Close the modal after updating the user
   };
 
   useEffect(() => {
@@ -41,78 +50,93 @@ export default function DashUsers() {
           <Table hoverable className='shadow-md'>
             <Table.Head>
               <Table.HeadCell>Date created</Table.HeadCell>
-              <Table.HeadCell>addresses</Table.HeadCell>
-              <Table.HeadCell>name</Table.HeadCell>
+              <Table.HeadCell>Address</Table.HeadCell>
+              <Table.HeadCell>Name</Table.HeadCell>
               <Table.HeadCell>Email</Table.HeadCell>
-              <Table.HeadCell>Admin</Table.HeadCell>
-              <Table.HeadCell>Delete</Table.HeadCell>
+              <Table.HeadCell>Role</Table.HeadCell>
+              <Table.HeadCell>Action</Table.HeadCell> {/* Add Action column for edit and delete buttons */}
             </Table.Head>
-            {Array.isArray(users) && users.length > 0 && users.map((user) => (
-              <Table.Body className='divide-y' key={user.id}>
-                <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                <Table.Cell>
+            <Table.Body>
+              {Array.isArray(users) && users.length > 0 && users.map((user) => (
+                <Table.Row key={user.id}>
+                  <Table.Cell>
                     {new Date(user.createdAt).toLocaleDateString()}
                   </Table.Cell>
-                  <Table.Cell>{user.name}</Table.Cell>
                   <Table.Cell>
                     {user.addresses.map((address, index) => (
                       <div key={index}>
-                        <p>Name: {address.name}</p>
-                        <p>Email: {address.email}</p>
-                        <p>Phone: {address.phone}</p>
-                        <p>Street: {address.street}</p>
-                        <p>City: {address.city}</p>
+                        <ul>
+                          <li>City: {address.city}</li>
+                        </ul>
                       </div>
                     ))}
                   </Table.Cell>
+                  <Table.Cell>{user.name}</Table.Cell>
                   <Table.Cell>{user.email}</Table.Cell>
+                  <Table.Cell>{user.role}</Table.Cell>
                   <Table.Cell>
-                    {user.role === 'admin' ? (
-                      <FaCheck className='text-green-500' />
-                    ) : (
-                      <FaTimes className='text-red-500' />
-                    )}
-                  </Table.Cell>
-                  <Table.Cell>
-                    <span
-                      className='font-medium text-red-500 hover:underline cursor-pointer'
-                      onClick={() => setShowModal(true)}
-                    >
-                      Delete
-                    </span>
+                    <div className='flex items-center space-x-2'>
+                      <Button color='success' onClick={() => handleEditUser(user)}>
+                        Edit
+                      </Button>
+                      <Button color='failure' onClick={() => handleDeleteUser(user.id)}>
+                        Delete
+                      </Button>
+                    </div>
                   </Table.Cell>
                 </Table.Row>
-              </Table.Body>
-            ))}
+              ))}
+            </Table.Body>
           </Table>
         </>
       ) : (
         <p>You have no users yet!</p>
       )}
-      <Modal
-        show={showModal}
-        onClose={() => setShowModal(false)}
-        popup
-        size='md'
-      >
-        <Modal.Header />
-        <Modal.Body>
-          <div className='text-center'>
-            <HiOutlineExclamationCircle className='h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto' />
-            <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'>
-              Are you sure you want to delete this user?
-            </h3>
-            <div className='flex justify-center gap-4'>
-              <Button color='failure' onClick={handleDeleteUser}> {/* Call handleDeleteUser function */}
-                Yes, I'm sure
-              </Button>
-              <Button color='gray' onClick={() => setShowModal(false)}>
-                No, cancel
-              </Button>
+      {editedUser && (
+        <Modal
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          popup
+          size='md'
+        >
+          <Modal.Header />
+          <Modal.Body>
+            <div className='text-center'>
+              <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'>
+                Edit User
+              </h3>
+              <form onSubmit={handleUpdateUser}>
+                <TextInput
+                  type='text'
+                  value={editedUser.name}
+                  onChange={(e) => setEditedUser({ ...editedUser, name: e.target.value })}
+                />
+                <TextInput
+                  type='email'
+                  value={editedUser.email}
+                  onChange={(e) => setEditedUser({ ...editedUser, email: e.target.value })}
+                />
+                <Select
+                  value={editedUser.role}
+                  onChange={(e) => setEditedUser({ ...editedUser, role: e.target.value })}
+                >
+                  <option value="distributer">distributer</option>
+                  <option value="manager">manager</option>
+                  <option value="supplier">supplier</option>
+                </Select>
+                <div className='flex justify-center gap-4'>
+                  <Button color='success' type='submit'>
+                    Update
+                  </Button>
+                  <Button color='gray' onClick={() => setShowModal(false)}>
+                    Cancel
+                  </Button>
+                </div>
+              </form>
             </div>
-          </div>
-        </Modal.Body>
-      </Modal>
+          </Modal.Body>
+        </Modal>
+      )}
     </div>
   );
 }

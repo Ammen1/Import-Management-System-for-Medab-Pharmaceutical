@@ -9,42 +9,29 @@ import {
   selectCategories,
   selectTotalItems,
 } from '../features/product/productSlice'
-import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
-  StarIcon,
 } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
-import {
-  ChevronDownIcon,
-  FunnelIcon,
-  MinusIcon,
-  PlusIcon,
-  Squares2X2Icon,
-} from '@heroicons/react/20/solid';
 import { ITEMS_PER_PAGE } from '../app/constants'
-
-const sortOptions = [
-  { name: 'Best Rating', sort: 'rating', order: 'desc', current: false },
-  { name: 'Price: Low to High', sort: 'discountPrice', order: 'asc', current: false },
-  { name: 'Price: High to Low', sort: 'discountPrice', order: 'desc', current: false },
-];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 function ProductTable({ products }) {
+
     return (
         <div className=" max-w-screen-lg overflow-hidden mt-12 overflow-x-scroll  scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 scrollbar-track-slate-700 scrollbar-thumb-slate-500 ">
         <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl ">
           <table className=" max-w-screen-lg  divide-y   divide-gray-200">
             <thead className="bg-gray-50  ">
               <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Brand</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thumbnail</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Brand</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Regulatory Info</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product Specifications</th>
@@ -58,10 +45,12 @@ function ProductTable({ products }) {
             <tbody className="bg-white divide-y divide-gray-200">
               {products.map((product) => (
                 <tr key={product.id}>
-                  <td className="px-6 py-4 whitespace-nowrap">{product.brand}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{product.title}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <img className="h-10 w-10 rounded-full" src={product.thumbnail} alt={product.title} />
                   </td>
+                  <td className="px-6 py-4 whitespace-nowrap">{product.brand}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{product.totalItems}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{product.category}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{product.regulatoryInfo}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{product.productSpecifications}</td>
