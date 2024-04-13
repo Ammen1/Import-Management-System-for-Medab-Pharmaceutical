@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, Navigate } from 'react-router-dom';
 
 import { selectLoggedInUser, createUserAsync } from '../features/auth/authSlice';
-import { Button } from 'flowbite-react';
+import { Button, Card, Label, Select, TextInput } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function SuppliersAndDistributers() {
@@ -32,38 +32,33 @@ export default function SuppliersAndDistributers() {
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-20 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-16 mt-5 w-auto"
-            src="/logo.png"
-            alt="Your Company"
-          />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <div className="text-base text-white p-2 font-semibold leading-7 text-center bg-gradient-to-r  from-indigo-500 via-purple-800">
             Create a New Account
-          </h2>
+          </div>
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <Card className="mt-8 sm:mx-auto sm:w-full w-full sm:max-w-sm">
           <form
             noValidate
-            className="space-y-6"
+            className="space-y-3"
             onSubmit={handleSubmit(onSubmit)}
             
           >
             <div>
-              <label
+              <Label
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Name
-              </label>
+              </Label>
               <div className="mt-2">
-                <input
+                <TextInput
                   id="name"
                   {...register('name', {
                     required: 'Name is required',
                   })}
                   type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className=""
                 />
                 {errors.name && (
                   <p className="text-red-500">{errors.name.message}</p>
@@ -71,14 +66,14 @@ export default function SuppliersAndDistributers() {
               </div>
             </div>
             <div>
-              <label
+              <Label
                 htmlFor="email"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Email address
-              </label>
+              </Label>
               <div className="mt-2">
-                <input
+                <TextInput
                   id="email"
                   {...register('email', {
                     required: 'email is required',
@@ -88,7 +83,7 @@ export default function SuppliersAndDistributers() {
                     },
                   })}
                   type="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className=""
                 />
                 {errors.email && (
                   <p className="text-red-500">{errors.email.message}</p>
@@ -97,14 +92,14 @@ export default function SuppliersAndDistributers() {
             </div>
 
             <div>
-              <label
+              <Label
                 htmlFor="password"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Password
-              </label>
+              </Label>
               <div className="mt-2">
-                <input
+                <TextInput
                   id="password"
                   {...register('password', {
                     required: 'password is required',
@@ -117,7 +112,7 @@ export default function SuppliersAndDistributers() {
                     },
                   })}
                   type="password"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className=""
                 />
                 {errors.password && (
                   <p className="text-red-500">{errors.password.message}</p>
@@ -126,14 +121,14 @@ export default function SuppliersAndDistributers() {
             </div>
 
             <div>
-              <label
+              <Label
                 htmlFor="confirmPassword"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Confirm Password
-              </label>
+              </Label>
               <div className="mt-2">
-                <input
+                <TextInput
                   id="confirmPassword"
                   {...register('confirmPassword', {
                     required: 'confirm password is required',
@@ -141,7 +136,7 @@ export default function SuppliersAndDistributers() {
                       value === formValues.password || 'password not matching',
                   })}
                   type="password"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className=""
                 />
                 {errors.confirmPassword && (
                   <p className="text-red-500">
@@ -153,24 +148,24 @@ export default function SuppliersAndDistributers() {
 
             {/* Role select field */}
             <div>
-              <label
+              <Label
                 htmlFor="role"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Role
-              </label>
+              </Label>
               <div className="mt-2">
-                <select
+                <Select
                   id="role"
                   {...register('role', {
                     required: 'Role is required',
                   })}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className=""
                 >
                   <option value="">Select a role</option>
                   <option value="distributor">distributor</option>
                   <option value="supplier">supplier</option>
-                </select>
+                </Select>
                 {errors.role && (
                   <p className="text-red-500">{errors.role.message}</p>
                 )}
@@ -182,9 +177,9 @@ export default function SuppliersAndDistributers() {
               pill
               processingLabel='amen'
               type="submit"
-              className="flex w-full justify-center rounded-md bg-gradient-to-b from-indigo-500 to-pink-600 via-purple-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="flex w-full justify-center rounded-md bg-gradient-to-b from-indigo-500 to-pink-600 via-purple-600  text-sm font-semibold leading-6 text-white "
               >
-                Sign Up
+                Add Users
               </Button>
             </div>
           </form>
@@ -198,7 +193,7 @@ export default function SuppliersAndDistributers() {
               Log In
             </Link>
           </p>
-        </div>
+        </Card>
       </div>
     </>
   );
