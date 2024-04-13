@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Modal from '../../common/Modal';
 import { useAlert } from 'react-alert';
-import { Button } from 'flowbite-react';
+import { Button, Card, Label, Select, TextInput, Textarea } from 'flowbite-react';
 
 function ProductForm() {
   const {
@@ -163,9 +163,9 @@ function ProductForm() {
           }
         })}
       >
-        <div className="space-y-4 bg-white p-10 lg:ml-64 ">
+        <Card className="space-y-4 bg-white p-10 lg:ml-44 ">
           <div className="border-b border-gray-900/10 pb-12">
-            <div className="text-base p-2 font-semibold leading-7">
+            <div className="text-base text-white p-2 font-semibold leading-7 text-center bg-gradient-to-r  from-indigo-500 via-purple-800">
               Add Product
             </div>
 
@@ -177,15 +177,15 @@ function ProductForm() {
               )}
 
               <div className="sm:col-span-6">
-                <label
+                <Label
                   htmlFor="title"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Product Name
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                    <input
+                  <div className=" ">
+                    <TextInput
                       type="text"
                       {...register('title', {
                         required: 'name is required',
@@ -198,15 +198,15 @@ function ProductForm() {
               </div>
               
               <div className="sm:col-span-6">
-                <label
+                <Label
                   htmlFor="title"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   regulatoryInfo
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                    <input
+                  <div className=" ">
+                    <TextInput
                       type="text"
                       {...register('regulatoryInfo', {
                         required: 'regulatory Info is required',
@@ -218,15 +218,15 @@ function ProductForm() {
                 </div>
               </div>
               <div className="sm:col-span-6">
-                <label
+                <Label
                   htmlFor="title"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   product Specifications
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                    <input
+                  <div className=" ">
+                    <TextInput
                       type="text"
                       {...register('productSpecifications', {
                         required: 'product Specifications is required',
@@ -238,15 +238,15 @@ function ProductForm() {
                 </div>
               </div>
               <div className="sm:col-span-6">
-                <label
+                <Label
                   htmlFor="title"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                 safety Info
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                    <input
+                  <div className="">
+                    <TextInput
                       type="text"
                       {...register('safetyInfo', {
                         required: 'safety Info is required',
@@ -258,15 +258,15 @@ function ProductForm() {
                 </div>
               </div>
               <div className="sm:col-span-6">
-                <label
+                <Label
                   htmlFor="title"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                 batch Number
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                    <input
+                  <div className=" ">
+                    <TextInput
                       type="number"
                       {...register('batchNumber', {
                         required: 'batch Number is required',
@@ -278,15 +278,15 @@ function ProductForm() {
                 </div>
               </div>
               <div className="sm:col-span-6">
-                <label
+                <Label
                   htmlFor="title"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                 expiryDate
-                </label>
+                </Label>
                 <div className="mt-2">
                   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                    <input
+                    <TextInput
                       type="date"
                       {...register('expiryDate', {
                         required: 'batch Number is required',
@@ -299,14 +299,14 @@ function ProductForm() {
               </div>
 
               <div className="col-span-full">
-                <label
+                <Label
                   htmlFor="description"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Description
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <textarea
+                  <Textarea
                     id="description"
                     {...register('description', {
                       required: 'description is required',
@@ -322,14 +322,14 @@ function ProductForm() {
               </div>
 
               <div className="col-span-full">
-                <label
+                <Label
                   htmlFor="brand"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Brand
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <select
+                  <Select
                     {...register('brand', {
                       required: 'brand is required',
                     })}
@@ -340,63 +340,18 @@ function ProductForm() {
                         {brand.label}
                       </option>
                     ))}
-                  </select>
+                  </Select>
                 </div>
               </div>
-
               <div className="col-span-full">
-                <label
-                  htmlFor="colors"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Colors
-                </label>
-                <div className="mt-2">
-                  {colors.map((color) => (
-                    <>
-                      <input
-                        type="checkbox"
-                        {...register('colors', {})}
-                        key={color.id}
-                        value={color.id}
-                      />{' '}
-                      {color.name}
-                    </>
-                  ))}
-                </div>
-              </div>
-
-              <div className="col-span-full">
-                <label
-                  htmlFor="sizes"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Sizes
-                </label>
-                <div className="mt-2">
-                  {sizes.map((size) => (
-                    <>
-                      <input
-                        type="checkbox"
-                        {...register('sizes', {})}
-                        key={size.id}
-                        value={size.id}
-                      />{' '}
-                      {size.name}
-                    </>
-                  ))}
-                </div>
-              </div>
-
-              <div className="col-span-full">
-                <label
+                <Label
                   htmlFor="category"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Category
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <select
+                  <Select
                     {...register('category', {
                       required: 'category is required',
                     })}
@@ -407,20 +362,20 @@ function ProductForm() {
                         {category.label}
                       </option>
                     ))}
-                  </select>
+                  </Select>
                 </div>
               </div>
 
               <div className="sm:col-span-2">
-                <label
+                <Label
                   htmlFor="price"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className=""
                 >
                   Price
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                    <input
+                  <div className=" ">
+                    <TextInput
                       type="number"
                       {...register('price', {
                         required: 'price is required',
@@ -428,22 +383,22 @@ function ProductForm() {
                         max: 10000,
                       })}
                       id="price"
-                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                      className=""
                     />
                   </div>
                 </div>
               </div>
 
               <div className="sm:col-span-2">
-                <label
+                <Label
                   htmlFor="discountPercentage"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className=""
                 >
                   Discount Percentage
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                    <input
+                  <div className="">
+                    <TextInput
                       type="number"
                       {...register('discountPercentage', {
                         required: 'discountPercentage is required',
@@ -451,44 +406,44 @@ function ProductForm() {
                         max: 100,
                       })}
                       id="discountPercentage"
-                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                      className=""
                     />
                   </div>
                 </div>
               </div>
 
               <div className="sm:col-span-2">
-                <label
+                <Label
                   htmlFor="stock"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Stock
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                    <input
+                  <div className=" ">
+                    <TextInput
                       type="number"
                       {...register('stock', {
                         required: 'stock is required',
                         min: 0,
                       })}
                       id="stock"
-                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                      className=""
                     />
                   </div>
                 </div>
               </div>
 
               <div className="sm:col-span-6">
-                <label
+                <Label
                   htmlFor="thumbnail"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Thumbnail
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                    <input
+                  <div className=" ">
+                    <TextInput
                       type="text"
                       {...register('thumbnail', {
                         required: 'thumbnail is required',
@@ -501,15 +456,15 @@ function ProductForm() {
               </div>
 
               <div className="sm:col-span-6">
-                <label
+                <Label
                   htmlFor="image1"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Image 1
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                    <input
+                  <div className=" ">
+                    <TextInput
                       type="text"
                       {...register('image1', {
                         required: 'image1 is required',
@@ -522,15 +477,15 @@ function ProductForm() {
               </div>
 
               <div className="sm:col-span-6">
-                <label
+                <Label
                   htmlFor="image2"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Image 2
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                    <input
+                  <div className="">
+                    <TextInput
                       type="text"
                       {...register('image2', {
                         required: 'image is required',
@@ -543,15 +498,15 @@ function ProductForm() {
               </div>
 
               <div className="sm:col-span-6">
-                <label
+                <Label
                   htmlFor="image2"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Image 3
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                    <input
+                  <div className=" ">
+                    <TextInput
                       type="text"
                       {...register('image3', {
                         required: 'image is required',
@@ -564,15 +519,15 @@ function ProductForm() {
               </div>
 
               <div className="sm:col-span-6">
-                <label
+                <Label
                   htmlFor="highlight1"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Highlight 1
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                    <input
+                  <div className="">
+                    <TextInput
                       type="text"
                       {...register('highlight1', {})}
                       id="highlight1"
@@ -582,15 +537,15 @@ function ProductForm() {
                 </div>
               </div>
               <div className="sm:col-span-6">
-                <label
+                <Label
                   htmlFor="highlight2"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Highlight 2
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                    <input
+                  <div className=" ">
+                    <TextInput
                       type="text"
                       {...register('highlight2', {})}
                       id="highlight2"
@@ -600,15 +555,15 @@ function ProductForm() {
                 </div>
               </div>
               <div className="sm:col-span-6">
-                <label
+                <Label
                   htmlFor="highlight3"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Highlight 3
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                    <input
+                  <div className=" ">
+                    <TextInput
                       type="text"
                       {...register('highlight3', {})}
                       id="highlight3"
@@ -618,15 +573,15 @@ function ProductForm() {
                 </div>
               </div>
               <div className="sm:col-span-6">
-                <label
+                <Label
                   htmlFor="highlight4"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Highlight 4
-                </label>
+                </Label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                    <input
+                  <div className=" ">
+                    <TextInput
                       type="text"
                       {...register('highlight4', {})}
                       id="highlight4"
@@ -635,19 +590,65 @@ function ProductForm() {
                   </div>
                 </div>
               </div>
+              <div className="col-span-full">
+                <Label
+                  htmlFor="colors"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Colors
+                </Label>
+                <div className="mt-2 space-x-6">
+                  {colors.map((color) => (
+                    <>
+                      <input
+                        type="checkbox"
+                        {...register('colors', {})}
+                        key={color.id}
+                        value={color.id}
+                        className=' rounded-full w-9 h-9 space-x-9'
+                      />{' '}
+                      {color.name}
+                      cla
+                    </>
+                  ))}
+                </div>
+              </div>
+
+              <div className="col-span-full">
+                <Label
+                  htmlFor="sizes"
+                  className=""
+                >
+                  Sizes
+                </Label>
+                <div className="mt-2 space-x-6">
+                  {sizes.map((size) => (
+                    <>
+                      <input
+                        type="checkbox"
+                        {...register('sizes', {})}
+                        key={size.id}
+                        value={size.id}
+                        className=' rounded-full w-9 h-9'
+                      />{' '}
+                      {size.name}
+                    </>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
-          </div>
+          </Card>
           <div className="mt-6 flex items-center justify-end gap-x-6">
-          <button
+          <Button
             type="button"
             className="text-sm font-semibold leading-6 text-gray-900"
           >
             Cancel
-          </button>
+          </Button>
 
           {selectedProduct && !selectedProduct.deleted && (
-            <button
+            <Button
               onClick={(e) => {
                 e.preventDefault();
                 setOpenModal(true);
@@ -655,15 +656,15 @@ function ProductForm() {
               className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Delete
-            </button>
+            </Button>
           )}
 
-          <button
+          <Button
             type="submit"
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Save
-          </button>
+          </Button>
         </div>
       </form>
       {selectedProduct && (
