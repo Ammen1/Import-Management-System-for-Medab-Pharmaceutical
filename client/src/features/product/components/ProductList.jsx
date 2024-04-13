@@ -29,6 +29,7 @@ import { ITEMS_PER_PAGE } from '../../../app/constants';
 import Pagination from '../../common/Pagination';
 import { Grid } from 'react-loader-spinner';
 import { selectUserInfo } from '../../user/userSlice';
+import { Button, TextInput } from 'flowbite-react';
 
 const sortOptions = [
   { name: 'Best Rating', sort: 'rating', order: 'desc', current: false },
@@ -123,7 +124,7 @@ export default function ProductList() {
 
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900">
+            <h1 className="text-base text-black p-2 font-semibold leading-7 text-center bg-gradient-to-r  from-indigo-500 via-purple-800">
               All Products
             </h1>
 
@@ -192,7 +193,7 @@ export default function ProductList() {
           </div>
 
           <section aria-labelledby="products-heading" className="pb-24 pt-6">
-            <h2 id="products-heading" className="sr-only">
+            <h2 id="products-heading" className="sr-only text-base text-white p-2 font-semibold leading-7 text-center bg-gradient-to-r  from-indigo-500 via-purple-800">
               Products
             </h2>
 
@@ -343,12 +344,12 @@ function MobileFilter({
 
 function DesktopFilter({ handleFilter, filters }) {
   return (
-    <form className="hidden lg:block">
+    <form className="hidden lg:block ml-4">
       {filters.map((section) => (
         <Disclosure
           as="div"
           key={section.id}
-          className="border-b border-gray-200 py-6"
+          className="border-b border-gray-200 py-6 "
         >
           {({ open }) => (
             <>
@@ -366,11 +367,11 @@ function DesktopFilter({ handleFilter, filters }) {
                   </span>
                 </Disclosure.Button>
               </h3>
-              <Disclosure.Panel className="pt-6">
+              <Disclosure.Panel className="pt-6 ml-6">
                 <div className="space-y-4">
                   {section.options.map((option, optionIdx) => (
                     <div key={option.value} className="flex items-center">
-                      <input
+                      <TextInput
                         id={`filter-${section.id}-${optionIdx}`}
                         name={`${section.id}[]`}
                         defaultValue={option.value}
@@ -399,7 +400,7 @@ function DesktopFilter({ handleFilter, filters }) {
 
 function ProductGrid({ products, status, userInfo }) {
   return (
-    <div className="bg-white">
+    <div className="bg-white ">
       <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
           {status === 'loading' ? (
@@ -417,7 +418,7 @@ function ProductGrid({ products, status, userInfo }) {
           {products.map((product) => (
             <Link to={`/product-detail/${product.id}`} key={product.id}>
               <div className="group relative border-solid border-2 p-2 border-gray-200">
-                <div className="min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
+                <div className="min-h-50 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
                   <img
                     src={product.thumbnail}
                     alt={product.title}
