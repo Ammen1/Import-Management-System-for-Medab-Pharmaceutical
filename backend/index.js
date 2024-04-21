@@ -17,6 +17,8 @@ const categoriesRouter = require('./routes/Categories');
 const brandsRouter = require('./routes/Brands');
 const usersRouter = require('./routes/Users');
 const authRouter = require('./routes/Auth');
+const ChatRoute= require('./routes/ChatRoute.js')
+const MessageRoute= require('./routes/MessageRoute.js')
 const cartRouter = require('./routes/Cart');
 const ordersRouter = require('./routes/Order');
 const { User } = require('./model/User');
@@ -100,6 +102,8 @@ server.use('/backend/users',  usersRouter.router);
 server.use('/backend/auth', authRouter.router);
 server.use('/backend/cart', passport.authenticate('jwt'), cartRouter.router);
 server.use('/backend/orders', passport.authenticate('jwt'), ordersRouter.router);
+server.use('/chat', ChatRoute.router)
+server.use('/message', MessageRoute.router)
 
 // this line we add to make react router work in case other routes don't match
 server.get('*', (req, res) =>
