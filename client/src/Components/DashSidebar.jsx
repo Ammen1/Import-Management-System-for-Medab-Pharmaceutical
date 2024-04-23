@@ -155,7 +155,7 @@ export default function DashSidebar() {
                 icon={HiPlus}
                 as='div'
               >
-              Add Supplier
+              Add Users
               </Sidebar.Item>
             </Link>
             <Link to='/dashboard?tab=list-product'>
@@ -174,12 +174,12 @@ export default function DashSidebar() {
                 icon={HiAnnotation}
                 as='div'
               >
-                Manage supplier
+                Manage Users
               </Sidebar.Item>
             </Link>
             <Link to='/dashboard?tab=generate'>
               <Sidebar.Item
-                active={tab === 'orders'}
+                active={tab === 'generate'}
                 icon={HiAnnotation}
                 as='div'
               >
