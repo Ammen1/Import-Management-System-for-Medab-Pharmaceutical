@@ -17,7 +17,7 @@ exports.fetchAllProducts = async (req, res) => {
     condition.deleted = { $ne: true };
   }
 
-  let query = Product.find(condition).populate({ path: 'user', select: 'email' });
+  let query = Product.find(condition);
 
   let totalProductsQuery = Product.find(condition);
 

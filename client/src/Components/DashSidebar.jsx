@@ -14,15 +14,17 @@ import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { selectLoggedInUser } from '../features/auth/authSlice';
 import { selectUserInfo } from '../features/user/userSlice';
 import Header from './Header';
+import Logout from '../features/auth/components/Logout';
+import { selectLoggedInUser, signOutAsync } from '../features/auth/authSlice';
 
 export default function DashSidebar() {
   const location = useLocation();
-  const dispatch = useDispatch();
   const userInfo = useSelector(selectUserInfo);
   const [tab, setTab] = useState('');
+  const dispatch = useDispatch();
+  const user = useSelector(selectLoggedInUser);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -202,12 +204,12 @@ export default function DashSidebar() {
                 icon={HiAnnotation}
                 as='div'
               >
-                Manage supplier
+                Manage Users
               </Sidebar.Item>
             </Link>
             <Link to='/dashboard?tab=generate'>
               <Sidebar.Item
-                active={tab === 'orders'}
+                active={tab === 'generate'}
                 icon={HiAnnotation}
                 as='div'
               >
@@ -345,12 +347,13 @@ export default function DashSidebar() {
           <Sidebar.ItemGroup className='flex flex-col gap-1'>
             {/* Render sidebar items based on user's role */}
             {renderSidebarItems()}
-            <Sidebar.Item
+            <Sidebar.Item>
+            <Link to="/logout"
               icon={HiArrowSmRight}
               className='cursor-pointer'
-              onClick={handleSignout}
             >
               Sign Out
+            </Link>
             </Sidebar.Item>
           </Sidebar.ItemGroup>
         </Sidebar.Items>
