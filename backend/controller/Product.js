@@ -1,8 +1,4 @@
 const { Product } = require('../model/Product');
-const PDFDocument = require('pdfkit');
-const fs = require('fs');
-const { ManagerInput } = require('../model/Report.model'); 
-const nodemailer = require('nodemailer');
 
 exports.createProduct = async (req, res) => {
   const product = new Product(req.body);
@@ -82,8 +78,6 @@ exports.updateProduct = async (req, res) => {
   }
 };
 
-
-
 exports.generateProductReports = async (req, res) => {
   try {
     const { customerName, medicineName, quantity, totalPrice, paymentMethod, description } = req.body;
@@ -95,14 +89,15 @@ exports.generateProductReports = async (req, res) => {
     // Generate report content
     doc.fontSize(14).text('Medicine Order Report', { align: 'center' }).moveDown();
     doc.fontSize(12)
-        .text({customerName})
-        .text({medicineName})
-        .text({quantity})
-        .text({totalPrice})
-        .text({paymentMethod})
-        .text({description})
+        .text(`Customer Name: ${customerName}`)
+        .text(`Medicine Name: ${medicineName}`)
+        .text(`Quantity: ${quantity}`)
+        .text(`Total Price: ${totalPrice}`)
+        .text(`Payment Method: ${paymentMethod}`)
+        .text(`description: ${description}`)
         .moveDown();
 
+    // Finalize the PDF and save to a file
     const writeStream = fs.createWriteStream(pdfPath);
     doc.pipe(writeStream);
     doc.end();
@@ -165,3 +160,4 @@ const sendReportByEmail = async (pdfPath, constructorEmail) => {
     console.error('Error sending email:', error);
   }
 };
+
