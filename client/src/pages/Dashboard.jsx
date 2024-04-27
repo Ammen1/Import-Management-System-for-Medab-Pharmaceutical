@@ -16,6 +16,9 @@ import ProductList from '../features/product/components/ProductList';
 import UserOrdersPage from './UserOrdersPage';
 import SuppliersAndDistributers from '../Components/SuppliersAndDistributers';
 import DashSuppliers from '../Components/DashSuppliers';
+import Generating from "../Components/Generating"
+import CreateBrand from '../Components/CreateBrand';
+import CreateCategory from '../Components/CreateCategory';
 
 export default function Dashboard() {
   const location = useLocation();
@@ -48,6 +51,9 @@ export default function Dashboard() {
       {tab==='suppliers-and-distributers' && <SuppliersAndDistributers />}
       {tab==='manage' && <DashSuppliers />}
       {tab==='table-product' && <ProductTable />}
+      {tab === 'generate' && <Generating />}
+      {tab === 'add-brand' && <CreateBrand />}add-category
+      {tab === 'add-category' && <CreateCategory />}
     </div>
   );
 }

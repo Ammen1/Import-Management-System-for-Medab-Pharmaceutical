@@ -33,9 +33,6 @@ export default function Component() {
     );
   }
   
-  
-   
-   
   function GlobeIcon(props) { 
     return ( 
       <svg 

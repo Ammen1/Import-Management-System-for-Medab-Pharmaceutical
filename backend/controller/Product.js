@@ -1,4 +1,8 @@
 const { Product } = require('../model/Product');
+const PDFDocument = require('pdfkit');
+const fs = require('fs');
+const { ManagerInput } = require('../model/Report.model'); 
+const nodemailer = require('nodemailer');
 
 exports.createProduct = async (req, res) => {
   const product = new Product(req.body);
@@ -12,32 +16,32 @@ exports.createProduct = async (req, res) => {
 };
 
 exports.fetchAllProducts = async (req, res) => {
-  let condition = {}
-  if(!req.query.admin){
-      condition.deleted = {$ne:true}
+  let condition = {};
+  if (!req.query.admin) {
+    condition.deleted = { $ne: true };
   }
-  
-  let query = Product.find(condition);
+
+  let query = Product.find(condition).populate({ path: 'user', select: 'email' });
+
   let totalProductsQuery = Product.find(condition);
 
-  console.log(req.query.category);
-
   if (req.query.category) {
-    query = query.find({ category: {$in:req.query.category.split(',')} });
+    query = query.find({ category: { $in: req.query.category.split(',') } });
     totalProductsQuery = totalProductsQuery.find({
-      category: {$in:req.query.category.split(',')},
+      category: { $in: req.query.category.split(',') },
     });
   }
   if (req.query.brand) {
-    query = query.find({ brand: {$in:req.query.brand.split(',')} });
-    totalProductsQuery = totalProductsQuery.find({ brand: {$in:req.query.brand.split(',') }});
+    query = query.find({ brand: { $in: req.query.brand.split(',') } });
+    totalProductsQuery = totalProductsQuery.find({
+      brand: { $in: req.query.brand.split(',') },
+    });
   }
   if (req.query._sort && req.query._order) {
     query = query.sort({ [req.query._sort]: req.query._order });
   }
 
   const totalDocs = await totalProductsQuery.count().exec();
-  console.log({ totalDocs });
 
   if (req.query._page && req.query._limit) {
     const pageSize = req.query._limit;
@@ -53,6 +57,7 @@ exports.fetchAllProducts = async (req, res) => {
     res.status(400).json(err);
   }
 };
+
 
 exports.fetchProductById = async (req, res) => {
   const { id } = req.params;
@@ -78,3 +83,85 @@ exports.updateProduct = async (req, res) => {
 };
 
 
+
+exports.generateProductReports = async (req, res) => {
+  try {
+    const { customerName, medicineName, quantity, totalPrice, paymentMethod, description } = req.body;
+
+    // Create a new PDF document
+    const doc = new PDFDocument();
+    const pdfPath = './medicine_order_report.pdf'; 
+
+    // Generate report content
+    doc.fontSize(14).text('Medicine Order Report', { align: 'center' }).moveDown();
+    doc.fontSize(12)
+        .text({customerName})
+        .text({medicineName})
+        .text({quantity})
+        .text({totalPrice})
+        .text({paymentMethod})
+        .text({description})
+        .moveDown();
+
+    const writeStream = fs.createWriteStream(pdfPath);
+    doc.pipe(writeStream);
+    doc.end();
+
+    writeStream.on('finish', async () => {
+      // Save the PDF file to Report schema
+      const pdfData = fs.readFileSync(pdfPath);
+      const report = new ManagerInput({
+        customerName,
+        medicineName,
+        quantity,
+        totalPrice,
+        paymentMethod,
+        description,
+      });
+      await report.save();
+
+      // Send the PDF report to the constructor via email
+      await sendReportByEmail(pdfPath, 'jhilwa5@gmail.com'); 
+
+      // Send the PDF file as a response
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'attachment; filename="project_report.pdf"');
+      fs.createReadStream(pdfPath).pipe(res);
+    });
+  } catch (error) {
+    console.error("Error generating project report:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+const sendReportByEmail = async (pdfPath, constructorEmail) => {
+  try {
+    // Create a Nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      host: "mail.gooderash.com",
+      port: 465,
+      secure: true, // Use SSL
+      auth: {
+        user: 'e-learning@gooderash.com',
+        pass: 'Amen#19729',
+      },
+    });
+
+    // Setup email data
+    const mailOptions = {
+      from:  'e-learning@gooderash.com',
+      to: constructorEmail,
+      subject: 'Project Report',
+      text: 'Please find the attached project report.',
+      attachments: [{
+        filename: 'project_report.pdf',
+        path: pdfPath, 
+      }],
+    };
+    // Send email
+    await transporter.sendMail(mailOptions);
+    console.log('Report sent to constructor successfully');
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
+};

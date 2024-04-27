@@ -7,6 +7,7 @@ import {
   HiAnnotation,
   HiChartPie,
   HiPlus,
+  HiUserGroup,
 } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -77,11 +78,10 @@ export default function DashSidebar() {
                 Profile
               </Sidebar.Item>
             </Link>
-            {/* Add other admin-related sidebar items here */}
             <Link to='/dashboard?tab=add-users'>
               <Sidebar.Item
                 active={tab === 'add-users'}
-                icon={HiAnnotation}
+                icon={HiPlus}
                 as='div'
               >
                 Create Account
@@ -90,10 +90,10 @@ export default function DashSidebar() {
             <Link to='/dashboard?tab=users'>
               <Sidebar.Item
                 active={tab === 'users'}
-                icon={HiAnnotation}
+                icon={HiUserGroup}
                 as='div'
               >
-               Manager 
+               Manage
               </Sidebar.Item>
             </Link>
            
@@ -101,6 +101,16 @@ export default function DashSidebar() {
               <Sidebar.Item
                 active={tab === 'comments'}
                 icon={HiAnnotation}
+                as='div'
+              >
+                Message 
+              </Sidebar.Item>
+            </Link>
+                       
+            <Link to='/dashboard?tab=comments'>
+              <Sidebar.Item
+                active={tab === 'comments'}
+                icon={HiPlus}
                 as='div'
               >
                 Message 
@@ -140,6 +150,24 @@ export default function DashSidebar() {
                Order item
               </Sidebar.Item>
             </Link>
+            <Link to='/dashboard?tab=add-brand'>
+              <Sidebar.Item
+                active={tab === 'add-brand'}
+                icon={HiPlus}
+                as='div'
+              >
+                Add Brand 
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=add-category'>
+              <Sidebar.Item
+                active={tab === 'add-category'}
+                icon={HiPlus}
+                as='div'
+              >
+                Add Category 
+              </Sidebar.Item>
+            </Link>
             <Link to='/dashboard?tab=add-product'>
               <Sidebar.Item
                 active={tab === 'add-product'}
@@ -155,7 +183,7 @@ export default function DashSidebar() {
                 icon={HiPlus}
                 as='div'
               >
-              Add Supplier
+              Add Users
               </Sidebar.Item>
             </Link>
             <Link to='/dashboard?tab=list-product'>

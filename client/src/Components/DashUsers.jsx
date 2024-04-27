@@ -33,8 +33,7 @@ export default function DashUsers() {
     setShowModal(true); // Open the modal for editing
   };
 
-  const handleUpdateUser = (e) => {
-    e.preventDefault();
+  const handleUpdateUser = () => {
     dispatch(updateUserAsync(editedUser));
     setShowModal(false); // Close the modal after updating the user
   };

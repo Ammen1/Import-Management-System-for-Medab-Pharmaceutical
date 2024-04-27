@@ -34,6 +34,8 @@ import AlertTemplate from 'react-alert-template-basic';
 import StripeCheckout from './pages/StripeCheckout';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import Dashboard from './pages/Dashboard';
+import Chat from "./pages/Chat/Chat";
+// import Coffee from './pages/Coffee';
 
 const options = {
   timeout: 5000,
@@ -70,6 +72,14 @@ const router = createBrowserRouter([
     element: (
       <Protected>
         <CartPage></CartPage>
+      </Protected>
+    ),
+  },
+  {
+    path: '/chat',
+    element: (
+      <Protected>
+        <Chat></Chat>
       </Protected>
     ),
   },

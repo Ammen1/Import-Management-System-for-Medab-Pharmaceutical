@@ -6,7 +6,7 @@ function Footer() {
     <>
       <Browerfooter
       container
-      className="border border-t-8 bg-slate-100 text-black border-teal-600 mt-5 hover:shadow-2xl hover:border-t-sky-600">
+      className="border border-t-4 bg-gradient-to-r from-sky-950 to-stone-300 via-teal-600 text-black border-teal-600 mt-5 hover:shadow-2xl hover:border-t-sky-600">
           <div className="mt-5">
             <div className="flex-1">
               <Link to="/" className="font-bold text-black text-4xl ">

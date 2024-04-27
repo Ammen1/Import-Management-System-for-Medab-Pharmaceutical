@@ -15,6 +15,9 @@ import Modal from '../../common/Modal';
 import { useAlert } from 'react-alert';
 import { Button, Card, Label, Select, TextInput, Textarea } from 'flowbite-react';
 
+import { selectUsers } from '../../user/userSlice';
+
+
 function ProductForm() {
   const {
     register,
@@ -30,6 +33,8 @@ function ProductForm() {
   const selectedProduct = useSelector(selectProductById);
   const [openModal, setOpenModal] = useState(null);
   const alert = useAlert();
+  const userInfo = useSelector(selectUsers);
+  console.log(userInfo)
   
 
   const colors = [
@@ -75,6 +80,7 @@ function ProductForm() {
   useEffect(() => {
     if (selectedProduct && params.id) {
       setValue('title', selectedProduct.title);
+      setValue('user', selectedProduct.user);
       setValue('description', selectedProduct.description);
       setValue('price', selectedProduct.price);
       setValue('discountPercentage', selectedProduct.discountPercentage);
@@ -130,6 +136,7 @@ function ProductForm() {
             product.highlight3,
             product.highlight4,
           ];
+          product.user = userInfo
           product.rating = 0;
           if (product.colors) {
             product.colors = product.colors.map((color) =>
@@ -204,9 +211,9 @@ function ProductForm() {
                 >
                   regulatoryInfo
                 </Label>
-                <div className="mt-2">
+                <div className="mt-2 border">
                   <div className=" ">
-                    <TextInput
+                    <Textarea
                       type="text"
                       {...register('regulatoryInfo', {
                         required: 'regulatory Info is required',
@@ -224,10 +231,9 @@ function ProductForm() {
                 >
                   product Specifications
                 </Label>
-                <div className="mt-2">
+                <div className="mt-2 border">
                   <div className=" ">
-                    <TextInput
-                      type="text"
+                    <Textarea
                       {...register('productSpecifications', {
                         required: 'product Specifications is required',
                       })}
@@ -244,10 +250,9 @@ function ProductForm() {
                 >
                 safety Info
                 </Label>
-                <div className="mt-2">
+                <div className="mt-2 border">
                   <div className="">
-                    <TextInput
-                      type="text"
+                    <Textarea
                       {...register('safetyInfo', {
                         required: 'safety Info is required',
                       })}
@@ -613,7 +618,7 @@ function ProductForm() {
                   ))}
                 </div>
               </div>
-
+{/* 
               <div className="col-span-full">
                 <Label
                   htmlFor="sizes"
@@ -635,7 +640,7 @@ function ProductForm() {
                     </>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           </Card>

@@ -9,14 +9,15 @@ import { Avatar, Button } from 'flowbite-react';
 
 const navigation = [
   { name: 'Products', link: '/', user: true },
-  { name: 'Products', link: '/dashboard?tab=products', supplier: true },
+  { name: 'Market', link: '/products', manager:true , distributor: true },
   { name: 'Dashboard', link: '/dashboard', supplier: true },
+  { name: 'Dashboard', link: '/dashboard', user: true, manager: true, distributor: true, admin: true },
 ];
 const userNavigation = [
   { name: 'My Profile', link: '/profile' },
   { name: 'My Orders', link: '/my-orders' },
   { name: 'Sign out', link: '/logout' },
-  { name: 'Address', link: '/profile' },
+  // { name: 'Address', link: '/profile' },
 ];
 
 function classNames(...classes) {
@@ -31,7 +32,7 @@ function NavBar({ children }) {
     <>
       {userInfo && (
         <div className="min-h-full ">
-          <Disclosure as="nav" className=" bg-slate-100 py-2 border-r-2">
+          <Disclosure as="nav" className="bg-gradient-to-r from-sky-950 to-stone-300 via-teal-600 py-2 border-r-2">
             {({ open }) => (
               <>
                 <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
@@ -53,7 +54,7 @@ function NavBar({ children }) {
                                 className={classNames(
                                   item.current
                                     ? 'bg-gray-900 text-white'
-                                    : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                    : 'text-gray-900 hover:bg-gray-700 hover:text-white',
                                   'rounded-md px-3 py-2 text-sm font-medium'
                                 )}
                                 aria-current={item.current ? 'page' : undefined}
@@ -71,7 +72,7 @@ function NavBar({ children }) {
                           <Link to="/cart">
                             <div
                               type="button"
-                              className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                              className="rounded-full  p-1 text-gray-400"
                             >
                               <span className="sr-only">View notifications</span>
                               <img
@@ -81,6 +82,7 @@ function NavBar({ children }) {
                               />
                             </div>
                           </Link>
+                          
                         ) : null}
                         {items.length > 0 && (
                           <span className="inline-flex mr-5 items-center rounded-md mb-7 -ml-3 bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
@@ -88,7 +90,7 @@ function NavBar({ children }) {
                           </span>
                         )}
                         {/* Profile dropdown */}
-                        <Menu as="div" className="relative ml-3">
+                        <Menu as="div" className="relative ">
                           <div>
                             <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                               <span className="sr-only">Open user menu</span>
