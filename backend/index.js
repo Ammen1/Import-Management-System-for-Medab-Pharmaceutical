@@ -95,9 +95,9 @@ server.use(
 );
 server.use(express.json()); // to parse req.body
 
-server.use('/backend/products', productsRouter.router);
-server.use('/backend/categories', categoriesRouter.router);
-server.use('/backend/brands',  brandsRouter.router);
+server.use('/backend/products', passport.authenticate('jwt'), productsRouter.router);
+server.use('/backend/categories', passport.authenticate('jwt'), categoriesRouter.router);
+server.use('/backend/brands', passport.authenticate('jwt'), brandsRouter.router);
 server.use('/backend/users',  usersRouter.router);
 server.use('/backend/auth', authRouter.router);
 server.use('/backend/cart', passport.authenticate('jwt'), cartRouter.router);
