@@ -15,7 +15,7 @@ import Modal from '../../common/Modal';
 import { useAlert } from 'react-alert';
 import { Button, Card, Label, Select, TextInput, Textarea } from 'flowbite-react';
 
-import { selectUsers } from '../../user/userSlice';
+import { selectUserInfo } from '../../user/userSlice';
 
 
 function ProductForm() {
@@ -33,8 +33,8 @@ function ProductForm() {
   const selectedProduct = useSelector(selectProductById);
   const [openModal, setOpenModal] = useState(null);
   const alert = useAlert();
-  const userInfo = useSelector(selectUsers);
-  console.log(userInfo)
+  const userInfo = useSelector(selectUserInfo);
+  console.log(userInfo.id)
   
 
   const colors = [
@@ -80,7 +80,6 @@ function ProductForm() {
   useEffect(() => {
     if (selectedProduct && params.id) {
       setValue('title', selectedProduct.title);
-      setValue('user', selectedProduct.user);
       setValue('description', selectedProduct.description);
       setValue('price', selectedProduct.price);
       setValue('discountPercentage', selectedProduct.discountPercentage);
@@ -136,7 +135,7 @@ function ProductForm() {
             product.highlight3,
             product.highlight4,
           ];
-          product.user = userInfo
+          product.user = userInfo.id;
           product.rating = 0;
           if (product.colors) {
             product.colors = product.colors.map((color) =>
