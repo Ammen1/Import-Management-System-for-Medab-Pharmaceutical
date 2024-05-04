@@ -31,11 +31,15 @@ export default function DashUsers() {
   const handleEditUser = (user) => {
     setEditedUser(user); // Set the selected user for editing
     setShowModal(true); // Open the modal for editing
+    
+
   };
 
   const handleUpdateUser = () => {
     dispatch(updateUserAsync(editedUser));
     setShowModal(false); // Close the modal after updating the user
+    // history('/dashboard?tab=manage');
+    window.location.reload(); 
   };
 
   useEffect(() => {
