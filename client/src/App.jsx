@@ -35,6 +35,7 @@ import StripeCheckout from './pages/StripeCheckout';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import Dashboard from './pages/Dashboard';
 import Chat from "./pages/Chat/Chat";
+import ProductList from './features/product/components/ProductList';
 // import Coffee from './pages/Coffee';
 
 const options = {
@@ -98,6 +99,14 @@ const router = createBrowserRouter([
         <ProductDetailPage></ProductDetailPage>
       </Protected>
     ),
+  },
+  {
+    path: '/list-product',
+    element: (
+      <Protected>
+      <ProductList></ProductList>
+      </Protected>
+    )
   },
   {
     path: '/admin/product-detail/:id',
@@ -177,7 +186,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <Dashboard></Dashboard>,
+    element: (
+    <Protected>
+    <Dashboard></Dashboard>
+    </Protected>
+  ),
   },
   {
     path: '*',
