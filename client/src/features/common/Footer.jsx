@@ -6,7 +6,7 @@ function Footer() {
     <>
       <Browerfooter
       container
-      className="border border-t-4 bg-gradient-to-r from-sky-950 to-stone-300 via-teal-600 text-black border-teal-600 mt-5 hover:shadow-2xl hover:border-t-sky-600">
+      className="border h-44 border-t-4 bg-gradient-to-r from-sky-950 to-stone-300 via-teal-600 text-black border-teal-600 mt-5 hover:shadow-2xl hover:border-t-sky-600">
           <div className="mt-5">
             <div className="flex-1">
               <Link to="/" className="font-bold text-black text-4xl ">
@@ -16,10 +16,7 @@ function Footer() {
                 Pharmaceutical Medical
               </Link>
               <p className="text-md mt-5 w-80 text-black">
-              Medab Pharmaceutical & Medical equipment is an 
-              Ethiopian based company established in 2013 by 
-              family members to solve the shortage in pharmaceutical 
-              products and medical equipment in the country
+              Supply chain management System for Medab Pharmaceutical 
               </p>
             </div>
           </div>

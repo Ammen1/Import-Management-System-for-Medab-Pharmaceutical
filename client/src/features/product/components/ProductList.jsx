@@ -49,6 +49,7 @@ export default function ProductList() {
   const totalItems = useSelector(selectTotalItems);
   const status = useSelector(selectProductListStatus);
   const userInfo = useSelector(selectUserInfo);
+  console.log("amen",userInfo)
   const filters = [
     {
       id: 'category',
@@ -399,6 +400,7 @@ function DesktopFilter({ handleFilter, filters }) {
 }
 
 function ProductGrid({ products, status, userInfo }) {
+  // const { email, role, name } = userInfo;
   return (
     <div className="bg-white ">
       <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
@@ -444,9 +446,9 @@ function ProductGrid({ products, status, userInfo }) {
                       <span className=" align-bottom">{product.rating}</span>
                     </p>
                     {/* Display the user's name */}
-                    <p className="mt-1 text-sm text-gray-700">
+                    {/* <p className="mt-1 text-sm text-gray-700">
                       Posted by: {product.user}
-                    </p>
+                    </p> */}
                     
                    
                   </div>

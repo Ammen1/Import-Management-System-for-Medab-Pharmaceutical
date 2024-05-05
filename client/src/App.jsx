@@ -25,6 +25,7 @@ import Logout from './features/auth/components/Logout';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ProtectedAdmin from './features/auth/components/ProtectedAdmin';
 import ProtectedSuppliers from './features/auth/components/ProtectedSuppliers';
+import Protectall from './features/auth/components/Projectall'
 import AdminHome from './pages/AdminHome';
 import AdminProductDetailPage from './pages/AdminProductDetailPage';
 import AdminProductFormPage from './pages/AdminProductFormPage';
@@ -47,9 +48,9 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <Protected>
+   
         <Home></Home>
-      </Protected>
+      
     ),
   },
   {
@@ -71,41 +72,41 @@ const router = createBrowserRouter([
   {
     path: '/cart',
     element: (
-      <Protected>
+      <Protectall>
         <CartPage></CartPage>
-      </Protected>
+      </Protectall>
     ),
   },
   {
     path: '/chat',
     element: (
-      <Protected>
+      <Protectall>
         <Chat></Chat>
-      </Protected>
+      </Protectall>
     ),
   },
   {
     path: '/checkout',
     element: (
-      <Protected>
+      <Protectall>
         <Checkout></Checkout>
-      </Protected>
+      </Protectall>
     ),
   },
   {
     path: '/product-detail/:id',
     element: (
-      <Protected>
+      <Protectall>
         <ProductDetailPage></ProductDetailPage>
-      </Protected>
+      </Protectall>
     ),
   },
   {
     path: '/list-product',
     element: (
-      <Protected>
+      <Protectall>
       <ProductList></ProductList>
-      </Protected>
+      </Protectall>
     )
   },
   {
@@ -143,33 +144,33 @@ const router = createBrowserRouter([
   {
     path: '/order-success/:id',
     element: (
-      <Protected>
+      <Protectall>
         <OrderSuccessPage></OrderSuccessPage>{' '}
-      </Protected>
+      </Protectall>
     ),
   },
   {
     path: '/my-orders',
     element: (
-      <Protected>
+      <Protectall>
         <UserOrdersPage></UserOrdersPage>{' '}
-      </Protected>
+      </Protectall>
     ),
   },
   {
     path: '/profile',
     element: (
-      <Protected>
+      <Protectall>
         <UserProfilePage></UserProfilePage>{' '}
-      </Protected>
+      </Protectall>
     ),
   },
   {
     path: '/stripe-checkout/',
     element: (
-      <Protected>
+      <Protectall>
         <StripeCheckout></StripeCheckout>
-      </Protected>
+      </Protectall>
     ),
   },
   {
@@ -187,9 +188,9 @@ const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: (
-    <Protected>
+    <Protectall>
     <Dashboard></Dashboard>
-    </Protected>
+    </Protectall>
   ),
   },
   {

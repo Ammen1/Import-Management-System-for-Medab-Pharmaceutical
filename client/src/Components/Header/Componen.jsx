@@ -1,7 +1,6 @@
 export default function Component() {
     return (
-      <div className="relative bg-blue-700 py-12 w-screen -translate-x-16 ml-3 border flex items-center justify-center" style={{ backgroundImage: 'url("/public/assets/banner/photo.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        {/* Color overlay */}
+      <div className="relative bg-blue-700 py-12 -translate-x-20  border flex items-center justify-center" style={{ backgroundImage: 'url("/public/assets/banner/photo.jpg")', backgroundSize: 'cover', backgroundPosition: 'center', width:1360}}>
         <div className="absolute inset-0 bg-black opacity-50"></div>
   
         <div className="max-w-7xl mx-auto px-4 relative z-10">

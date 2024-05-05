@@ -40,10 +40,8 @@ export const fetchLoggedInUserAsync = createAsyncThunk(
 export const updateUserAsync = createAsyncThunk(
   'backend/user/updateUser',
   async (update) => {
-    // this is name mistake
     const response = await updateUser(update);
-    // The value we return becomes the `fulfilled` action payload
-    return response.data;
+    return response;
   }
 );
 

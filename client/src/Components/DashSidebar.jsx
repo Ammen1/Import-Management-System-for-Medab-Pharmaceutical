@@ -60,15 +60,6 @@ export default function DashSidebar() {
       case 'admin':
         return (
           <>
-            <Link to='/dashboard?tab=dash'>
-              <Sidebar.Item
-                active={tab === 'dash' || !tab}
-                icon={HiChartPie}
-                as='div'
-              >
-                Dashboard
-              </Sidebar.Item>
-            </Link>
             <Link to='/dashboard?tab=profile'>
               <Sidebar.Item
                 active={tab === 'profile'}
