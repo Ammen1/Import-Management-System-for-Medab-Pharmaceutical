@@ -207,21 +207,21 @@ export default function DashSidebar() {
               Generate report
               </Sidebar.Item>
             </Link>
+            <Link to='/dashboard?tab=messagesd'>
+              <Sidebar.Item
+                active={tab === 'messagesd'}
+                icon={HiAnnotation}
+                as='div'
+              >
+               View Messages
+              </Sidebar.Item>
+            </Link>   
           </>
         );
       case 'distributor':
         return (
           <>
-            <Link to='/dashboard?tab=dash'>
-              <Sidebar.Item
-                active={tab === 'dash' || !tab}
-                icon={HiChartPie}
-                as='div'
-              >
-                Dashboard
-              </Sidebar.Item>
-            </Link>
-            <Link to='/dashboard?tab=profile'>
+          <Link to='/dashboard?tab=profile'>
               <Sidebar.Item
                 active={tab === 'profile'}
                 icon={HiUser}
@@ -251,15 +251,15 @@ export default function DashSidebar() {
               </Sidebar.Item>
             </Link>
            
-            <Link to='/dashboard?tab=comments'>
+            <Link to='/dashboard?tab=messagesds'>
               <Sidebar.Item
-                active={tab === 'comments'}
+                active={tab === 'messagesds'}
                 icon={HiAnnotation}
                 as='div'
               >
-                View massage
+               View Messages
               </Sidebar.Item>
-            </Link>
+            </Link> 
           </>
         );  
 
@@ -295,15 +295,6 @@ export default function DashSidebar() {
                 Product 
               </Sidebar.Item>
             </Link>
-            <Link to='/dashboard?tab=message'>
-              <Sidebar.Item
-                active={tab === 'message'}
-                icon={HiAnnotation}
-                as='div'
-              >
-                View message
-              </Sidebar.Item>
-            </Link>
             <Link to='/dashboard?tab=orders'>
               <Sidebar.Item
                 active={tab === 'orders'}
@@ -322,7 +313,15 @@ export default function DashSidebar() {
                View product
               </Sidebar.Item>
             </Link>
-        
+            <Link to='/dashboard?tab=messages'>
+              <Sidebar.Item
+                active={tab === 'messages'}
+                icon={HiAnnotation}
+                as='div'
+              >
+               View Messages
+              </Sidebar.Item>
+            </Link>            
           </>
         );
       default:
@@ -332,10 +331,10 @@ export default function DashSidebar() {
 
   return (
     <>
-      <div className=' w-screen -translate-x-4 fixed '><Header /></div>
-      <Sidebar className='w-full md:w-56 lg:fixed mt-16 '>
+      {/* <div className=' w-screen -translate-x-4  h-auto '><Header /></div> */}
+      <Sidebar className='w-full h-auto md:w-56 lg:fixed  '>
         <Sidebar.Items>
-          <Sidebar.ItemGroup className='flex flex-col gap-1'>
+          <Sidebar.ItemGroup className='flex flex-col gap-1 h-screen'>
             {/* Render sidebar items based on user's role */}
             {renderSidebarItems()}
             <Sidebar.Item>
