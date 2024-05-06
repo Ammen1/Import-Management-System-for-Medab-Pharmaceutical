@@ -1,9 +1,11 @@
 const express = require('express');
-const { addMessage, getMessages }  = require('../controller/MessageController.js');
-
 const router = express.Router();
-router.post('/', addMessage);
+const { getAllMessages, getMessages }  = require('../controller/MessageController');
 
-router.get('/:chatId', getMessages);
+// Route to get messages for a specific user
+router.get('/messages/:userId', getMessages);
+
+// Route to get all messages
+router.get('/messages/all', getAllMessages);
 
 exports.router = router;
