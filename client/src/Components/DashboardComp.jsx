@@ -1,31 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
-  HiAnnotation,
-  HiArrowDown,
-  HiArrowLeft,
-  HiArrowNarrowUp,
-  HiArrowRight,
   HiArrowUp,
   HiBookOpen,
-  HiDocumentText,
-  HiOutlineClipboardList,
-  HiOutlineUserGroup,
+  HiChartSquareBar,
+  HiChevronDoubleDown,
   HiOutlineUsers,
-  HiPhotograph,
   HiQrcode,
-  HiUserCircle,
+
 } from 'react-icons/hi';
 import { Button, Table } from 'flowbite-react';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';;
 import { selectUserInfo } from '../features/user/userSlice';
 
 export default function DashboardComp() {
-  const dispatch = useDispatch();
-  const [users, setUsers] = useState([]);
-  const [comments, setComments] = useState([]);
-  const [posts, setPosts] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);
   const [thisMonthUsers, setThisMonthUsers] = useState(0);
   const [totalOrders, setTotalOrders] = useState(0);
@@ -37,79 +25,77 @@ export default function DashboardComp() {
   const [lastProducts, setLastTotalProducts] = useState(0);
   const userInfo = useSelector(selectUserInfo);
 
-
-  console.log("total items", totalOrders)
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const res = await fetch('http://localhost:8080/count/users');
-        const data = await res.json();
-        if (res.ok) {
-          setTotalUsers(data.totalUsers);
-          setLastMonthUsers(data.totalUsersLastMonth);
-          setThisMonthUsers(data.totalUsersThisMonth)
-        } else {
-          console.error('Failed to fetch users:', data.error);
+    if (userInfo.role === 'manager') {
+      const fetchUsers = async () => {
+        try {
+          const res = await fetch('http://localhost:8080/count/users');
+          const data = await res.json();
+          if (res.ok) {
+            setTotalUsers(data.totalUsers);
+            setLastMonthUsers(data.totalUsersLastMonth);
+            setThisMonthUsers(data.totalUsersThisMonth);
+          } else {
+            console.error('Failed to fetch users:', data.error);
+          }
+        } catch (error) {
+          console.error('Error fetching users:', error);
         }
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    };
-  
+      };
+
       fetchUsers();
-    
-  }, []);
+    }
+  }, [userInfo.role]);
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const res = await fetch('http://localhost:8080/count/products');
-        const data = await res.json();
-        if (res.ok) {
-          setTotalProducts(data.totalProducts);
-          setThisTotalProducts(data.totalProductsThisMonth);
-          setLastTotalProducts(data.totalProductsLastMonth);
-        } else {
-          console.error('Failed to fetch products:', data.error);
+    if (userInfo.role === 'manager') {
+      const fetchProduct = async () => {
+        try {
+          const res = await fetch('http://localhost:8080/count/products');
+          const data = await res.json();
+          if (res.ok) {
+            setTotalProducts(data.totalProducts);
+            setThisTotalProducts(data.totalProductsThisMonth);
+            setLastTotalProducts(data.totalProductsLastMonth);
+          } else {
+            console.error('Failed to fetch products:', data.error);
+          }
+        } catch (error) {
+          console.error('Error fetching products:', error);
         }
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-  
-    fetchProduct(); 
-  }, []);
-  
-  
+      };
+
+      fetchProduct();
+    }
+  }, [userInfo.role]);
+
   useEffect(() => {
-    const fetchOrder = async () => {
-      try {
-        const res = await fetch('http://localhost:8080/count/orders');
-        const data = await res.json();
-        if (res.ok) {
-          setTotalOrders(data.totalOrders);
-          setLastMonthOrders(data.totalOrdersLastMonth);
-          setThisMonthOrders(data.totalOrdersThisMonth);
-        } else {
-          console.error('Failed to fetch products:', data.error);
+    if (userInfo.role === 'manager') {
+      const fetchOrder = async () => {
+        try {
+          const res = await fetch('http://localhost:8080/count/orders');
+          const data = await res.json();
+          if (res.ok) {
+            setTotalOrders(data.totalOrders);
+            setLastMonthOrders(data.totalOrdersLastMonth);
+            setThisMonthOrders(data.totalOrdersThisMonth);
+          } else {
+            console.error('Failed to fetch products:', data.error);
+          }
+        } catch (error) {
+          console.error('Error fetching products:', error);
         }
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-  
-    fetchOrder(); // Call the fetchProduct function
-  }, []);
-  
-  // if (userInfo.role !== "manager") {
-  //   // If user is not a manager, return null or redirect to another page
-  //   return null; // Or return a redirect component
-  // }
+      };
+
+      fetchOrder(); 
+    }
+  }, [userInfo.role]);
+
   
   return (
     <div className='p-3 md:mx-auto mt-20 space-y-5  '>
       <div className='flex-wrap flex gap-4 justify-center '>
-        <div className='flex flex-col p-3  bg-gradient-to-tl from-rose-900 to-green-900 via-slate-900 hover:bg-gradient-to-r hover:from-emerald-800 hover:to-neutral-400 hover:via-slate-950 gap-4 md:w-72 w-full rounded-lg shadow-md'>
+        <div className='flex flex-col p-3  bg-gradient-to-br from-rose-900 to-green-900 via-slate-900 hover:bg-gradient-to-r hover:from-emerald-800 hover:to-neutral-400 hover:via-slate-950 gap-4 md:w-72 w-full rounded-lg shadow-md'>
           <div className='flex justify-between'>
             <div className=''>
               <h3 className='text-md text-white '>Total Users</h3>
@@ -126,7 +112,7 @@ export default function DashboardComp() {
             <HiArrowUp className='text-white font-extrabold' />
             </p>
         </div>
-        <div className='flex flex-col  p-3 bg-gradient-to-bl from-pink-950 to-green-950 via-slate-800 gap-4 md:w-72 w-full hover:bg-gradient-to-br hover:from-emerald-800 hover:to-neutral-400 hover:via-slate-950  rounded-md shadow-md'>
+        <div className='flex flex-col  p-3 bg-gradient-to-r from-pink-950 to-green-950 via-slate-800 gap-4 md:w-72 w-full hover:bg-gradient-to-br hover:from-emerald-800 hover:to-neutral-400 hover:via-slate-950  rounded-md shadow-md'>
           <div className='flex justify-between'>
             <div className=''>
               <h3 className='text-md text-white'>
@@ -175,24 +161,9 @@ export default function DashboardComp() {
           </div>
           <Table hoverable>
             <Table.Head>
-              <Table.HeadCell>User image</Table.HeadCell>
-              <Table.HeadCell>Username</Table.HeadCell>
+              <Table.HeadCell><HiOutlineUsers/>Users</Table.HeadCell>
             </Table.Head>
-            {users &&
-              users.map((user) => (
-                <Table.Body key={user._id} className='divide-y'>
-                  <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                    <Table.Cell>
-                      <img
-                        src={user.profilePicture}
-                        alt='user'
-                        className='w-10 h-10 rounded-full bg-gray-500'
-                      />
-                    </Table.Cell>
-                    <Table.Cell className=''>{user.username}</Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-              ))}
+           
           </Table>
         </div>
         <div className='flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800'>
@@ -204,20 +175,8 @@ export default function DashboardComp() {
           </div>
           <Table hoverable>
             <Table.Head>
-              <Table.HeadCell>Product content</Table.HeadCell>
-              <Table.HeadCell>Likes</Table.HeadCell>
+              <Table.HeadCell><HiChartSquareBar />Product content</Table.HeadCell>
             </Table.Head>
-            {comments &&
-              comments.map((comment) => (
-                <Table.Body key={comment._id} className='divide-y'>
-                  <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                    <Table.Cell className='w-96'>
-                        <p className='line-clamp-2'>{comment.content}</p>
-                    </Table.Cell>
-                    <Table.Cell>{comment.numberOfLikes}</Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-              ))}
           </Table>
         </div>
         <div className='flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800'>
@@ -229,26 +188,8 @@ export default function DashboardComp() {
           </div>
           <Table hoverable>
             <Table.Head>
-              <Table.HeadCell>Post image</Table.HeadCell>
-              <Table.HeadCell>Post Title</Table.HeadCell>
-              <Table.HeadCell>Category</Table.HeadCell>
-            </Table.Head>
-            {posts &&
-              posts.map((post) => (
-                <Table.Body key={post._id} className='divide-y'>
-                  <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                    <Table.Cell>
-                      <img
-                        src={post.image}
-                        alt='user'
-                        className='w-14 h-10 rounded-md bg-gray-500'
-                      />
-                    </Table.Cell>
-                    <Table.Cell className='w-96'>{post.title}</Table.Cell>
-                    <Table.Cell className='w-5'>{post.category}</Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-              ))}
+              <Table.HeadCell><HiChevronDoubleDown />My Orders</Table.HeadCell>
+            </Table.Head>         
           </Table>
         </div>
       </div>
