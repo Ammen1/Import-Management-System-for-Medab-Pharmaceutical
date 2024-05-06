@@ -6,15 +6,17 @@ export default function CreateBrand() {
   const [label, setLabel] = useState('');
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
+  const [createdId, setCreatedId] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:8080/backend/brands', { label, value });
+      const response = await axios.post('http://localhost:8080/backend/brands', { label, value });
       setLabel('');
       setValue('');
       setError('');
+      setCreatedId(response.data.id); // Assuming the response contains the ID of the created brand
     } catch (err) {
       if (err.response) {
         setError(err.response.data.message);
@@ -28,6 +30,9 @@ export default function CreateBrand() {
     <div className="container mx-auto py-8 mt-20 lg:ml-36 ml-10">
       <h2 className="text-2xl font-bold mb-4">Create Brand</h2>
       {error && <p className="text-red-500 mb-4">{error}</p>}
+      {createdId && (
+        <p className="text-green-500 mb-4">Brand created successfully with ID: {createdId}</p>
+      )}
       <form onSubmit={handleSubmit} className='space-y-4 lg:mr-20 mr-20'>
         <div className="mb-4">
           <Label htmlFor="label" className="block text-sm font-medium text-gray-700 mb-1">Label:</Label>
