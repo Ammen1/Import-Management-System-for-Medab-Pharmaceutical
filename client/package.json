@@ -25,6 +25,7 @@
     "@testing-library/user-event": "^14.5.2",
     "axion": "^0.1.0",
     "axios": "^1.6.8",
+    "country-flag-icons": "^1.5.11",
     "flowbite-react": "^0.7.3",
     "framer-motion": "^11.0.28",
     "lottie-react": "^2.4.0",
