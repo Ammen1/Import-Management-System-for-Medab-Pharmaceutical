@@ -1,4 +1,7 @@
 const { Product } = require('../model/Product');
+const { User } = require('../model/User');
+const { ContactSuppliers } = require('../model/ContactSuppliers');
+const { sendMail } = require('../services/common')
 
 exports.createProduct = async (req, res) => {
   const product = new Product(req.body);
@@ -17,7 +20,7 @@ exports.fetchAllProducts = async (req, res) => {
     condition.deleted = { $ne: true };
   }
 
-  let query = Product.find(condition);
+  let query = Product.find(condition).populate('user'); // Populate the 'user' field
 
   let totalProductsQuery = Product.find(condition);
 
@@ -37,7 +40,7 @@ exports.fetchAllProducts = async (req, res) => {
     query = query.sort({ [req.query._sort]: req.query._order });
   }
 
-  const totalDocs = await totalProductsQuery.count().exec();
+  const totalDocs = await totalProductsQuery.countDocuments().exec(); // Use countDocuments()
 
   if (req.query._page && req.query._limit) {
     const pageSize = req.query._limit;
@@ -53,6 +56,7 @@ exports.fetchAllProducts = async (req, res) => {
     res.status(400).json(err);
   }
 };
+
 
 
 exports.fetchProductById = async (req, res) => {
@@ -161,3 +165,28 @@ const sendReportByEmail = async (pdfPath, constructorEmail) => {
   }
 };
 
+
+exports.createAndSendSuppliers = async (req, res) => {
+  try {
+    const { userId, subject, message } = req.body;
+
+    if (!userId || !subject || !message) {
+      return res.status(400).json({ success: false, message: 'Please provide userId, subject, and message' });
+    }
+
+    const user = await User.findById(userId);
+    if (!user || !user.email) {
+      return res.status(400).json({ success: false, message: 'User not found or user email not provided' });
+    }
+
+    const newContactSuppliers = new ContactSuppliers({ userId, subject, message });
+    await newContactSuppliers.save();
+
+    await sendMail({ to: user.email, html: message, subject });
+
+    return res.status(201).json({ success: true, message: 'Contact suppliers created and email sent successfully' });
+  } catch (error) {
+    console.error('Error creating and sending email to suppliers:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
