@@ -1,6 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, Navigate } from 'react-router-dom';
+import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri'; // Import eye icons
 
 import { selectLoggedInUser, createUserAsync } from '../features/auth/authSlice';
 import { Button, Card, Label, Select, TextInput } from 'flowbite-react';
@@ -10,6 +12,14 @@ export default function SuppliersAndDistributers() {
     const history = useNavigate()
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
+  const [showPassword, setShowPassword] = useState(false); // State to manage password visibility
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
   
   const {
     register,
@@ -92,14 +102,14 @@ export default function SuppliersAndDistributers() {
             </div>
 
             <div>
-              <Label
+              <label
                 htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-gray-900 relative" // Add relative class
               >
                 Password
-              </Label>
-              <div className="mt-2">
-                <TextInput
+              </label>
+              <div className="mt-2 relative">
+                <input
                   id="password"
                   {...register('password', {
                     required: 'password is required',
@@ -111,33 +121,46 @@ export default function SuppliersAndDistributers() {
                       - Can contain special characters`,
                     },
                   })}
-                  type="password"
-                  className=""
+                  type={showPassword ? 'text' : 'password'} // Toggle input type
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility} // Toggle password visibility on click
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 cursor-pointer focus:outline-none"
+                >
+                  {showPassword ? <RiEyeOffFill /> : <RiEyeFill />} {/* Eye icon */}
+                </button>
                 {errors.password && (
                   <p className="text-red-500">{errors.password.message}</p>
                 )}
               </div>
             </div>
-
             <div>
-              <Label
+              <label
                 htmlFor="confirmPassword"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-gray-900 relative" // Add relative class
               >
                 Confirm Password
-              </Label>
-              <div className="mt-2">
-                <TextInput
+              </label>
+              <div className="mt-2 relative">
+                <input
                   id="confirmPassword"
                   {...register('confirmPassword', {
                     required: 'confirm password is required',
                     validate: (value, formValues) =>
                       value === formValues.password || 'password not matching',
                   })}
-                  type="password"
-                  className=""
+                  type={showConfirmPassword ? 'text' : 'password'} // Toggle input type
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
+                <button
+                  type="button"
+                  onClick={toggleConfirmPasswordVisibility} // Toggle confirm password visibility on click
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 cursor-pointer focus:outline-none"
+                >
+                  {showConfirmPassword ? <RiEyeOffFill /> : <RiEyeFill />} {/* Eye icon */}
+                </button>
                 {errors.confirmPassword && (
                   <p className="text-red-500">
                     {errors.confirmPassword.message}
@@ -183,16 +206,6 @@ export default function SuppliersAndDistributers() {
               </Button>
             </div>
           </form>
-
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Already a Member?{' '}
-            <Link
-              to="/login"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
-              Log In
-            </Link>
-          </p>
         </Card>
       </div>
     </>
