@@ -13,6 +13,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 const cookieParser = require('cookie-parser');
 const { createProduct } = require('./controller/Product');
 const productsRouter = require('./routes/Products');
+const productRouter = require('./routes/Product');
 const categoriesRouter = require('./routes/Categories');
 const brandsRouter = require('./routes/Brands');
 const usersRouter = require('./routes/Users');
@@ -97,6 +98,7 @@ server.use(
 server.use(express.json()); // to parse req.body
 
 server.use('/backend/products', passport.authenticate('jwt'), productsRouter.router);
+server.use('/backend/product',  productRouter.router);
 server.use('/backend/categories',  categoriesRouter.router);
 server.use('/backend/brands', brandsRouter.router);
 server.use('/backend/users',  usersRouter.router);
