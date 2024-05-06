@@ -48,7 +48,7 @@ export default function DashUsers() {
 
   return (
     <div className='table-auto lg:mt-20 overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
-      {userInfo && userInfo.role === 'admin' && userInfo.role === 'manager' ? (
+      {userInfo && userInfo.role === 'admin' || userInfo.role === 'manager' ? (
         <>
           <Table hoverable className='shadow-md'>
             <Table.Head>
