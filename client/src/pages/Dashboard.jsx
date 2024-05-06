@@ -19,6 +19,9 @@ import DashSuppliers from '../Components/DashSuppliers';
 import Generating from "../Components/Generating"
 import CreateBrand from '../Components/CreateBrand';
 import CreateCategory from '../Components/CreateCategory';
+import DashMessage from '../Components/DashMessage';
+import DashMessageD from '../Components/DashMessageD';
+import DashMessageDs from '../Components/DashMessageDs';
 
 export default function Dashboard() {
   const location = useLocation();
@@ -52,8 +55,11 @@ export default function Dashboard() {
       {tab=== 'manage' && <DashSuppliers />}
       {tab=== 'table-product' && <ProductTable />}
       {tab === 'generate' && <Generating />}
-      {tab === 'add-brand' && <CreateBrand />}add-category
+      {tab === 'add-brand' && <CreateBrand />}
       {tab === 'add-category' && <CreateCategory />}
+      {tab === 'messages' && <DashMessage />}
+      {tab === 'messagesd' && <DashMessageD />}
+      {tab === 'messagesds' && <DashMessageDs />}
     </div>
   );
 }
