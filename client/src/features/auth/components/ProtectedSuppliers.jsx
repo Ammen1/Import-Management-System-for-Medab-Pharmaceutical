@@ -10,7 +10,7 @@ function ProtectedSuppliers({ children }) {
   if (!user) {
     return <Navigate to="/login" replace={true}></Navigate>;
   }
-  if (userInfo && userInfo.role!=='supplier' || userInfo !== 'manager') {
+  if (userInfo && userInfo.role!=='supplier') {
     return <Navigate to="/" replace={true}></Navigate>;
   }
   

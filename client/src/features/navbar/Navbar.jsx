@@ -6,12 +6,13 @@ import { useSelector } from 'react-redux';
 import { selectItems } from '../cart/cartSlice';
 import { selectUserInfo } from '../user/userSlice';
 import { Avatar, Button } from 'flowbite-react';
+import { selectError, selectLoggedInUser } from '../auth/authSlice';
 
 const navigation = [
   { name: 'Products', link: '/' },
   { name: 'Market', link: '/list-product', manager: true, distributor: true },
-  { name: 'Dashboard', link: '/dashboard', supplier: true , distributor: true, },
-  { name: 'Dashboard', link: '/dashboard?tab=dash', manager: true,  admin: true },
+  { name: 'Dashboard', link: '/dashboard', supplier: true , distributor: true, admin: true },
+  { name: 'Dashboard', link: '/dashboard?tab=dash', manager: true},
  
 ];
 
@@ -28,8 +29,8 @@ function classNames(...classes) {
 function NavBar({ children }) {
   const items = useSelector(selectItems);
   const userInfo = useSelector(selectUserInfo);
+  const user = useSelector(selectLoggedInUser);
 
-  // Check if userInfo is null before accessing its properties
   const userRole = userInfo ? userInfo.role : null;
 
   return (

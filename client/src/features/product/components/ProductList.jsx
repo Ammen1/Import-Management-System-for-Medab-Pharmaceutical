@@ -50,7 +50,7 @@ export default function ProductList() {
   const totalItems = useSelector(selectTotalItems);
   const status = useSelector(selectProductListStatus);
   const userInfo = useSelector(selectUserInfo);
-  console.log("amen",userInfo)
+  // console.log("amen",userInfo.id)
   console.log("porduct id", products)
   const filters = [
     {
@@ -405,7 +405,8 @@ function DesktopFilter({ handleFilter, filters }) {
 }
 
 
-function ProductGrid({ products, status, userInfo }) {
+function ProductGrid({ products, status }) {
+  const userInfo = useSelector(selectUserInfo);
 
   const handleSendEmail = async (userId) => {
     try {
@@ -503,12 +504,19 @@ function ProductGrid({ products, status, userInfo }) {
               )}
             </div>
             </Link> 
-            {product.user?.role === 'manager' ? null : (
-                    <div className="flex justify-center w-full p-1">
-                      <Button onClick={() => handleSendEmail(product.user?.id)} className="bg-gradient-to-br from-indigo-500 to-pink-500 via-indigo-600  rounded">
-                        Contact Suppliers
-                      </Button>
-                    </div>
+            {product.user?.role === 'manager' || userInfo.role === 'distributor' ? null : (
+            <div className="flex justify-center w-full p-1">
+            <Button onClick={() => handleSendEmail(product.user?.id)} className="bg-gradient-to-br from-indigo-500 to-pink-500 via-indigo-600 hover:bg-gradient-to-bl hover:from-emerald-700 hover:to-sky-600 hover:via-slate-700  rounded">
+              Contact Suppliers
+            </Button>
+          </div>
+          )}
+          {product.user?.role === 'supplier' || userInfo.role === 'manager' ? null : (
+            <div className="flex justify-center w-full p-1">
+            <Button onClick={() => handleSendEmail(userInfo.id)} className="bg-gradient-to-br from-indigo-500 to-pink-500 via-indigo-600 hover:bg-gradient-to-bl hover:from-emerald-700 hover:to-sky-600 hover:via-slate-700  rounded">
+              Contact Manager
+            </Button>
+          </div>
           )}
           </div>
           ))}
