@@ -38,6 +38,12 @@ export default function SuppliersAndDistributers() {
     history('/dashboard?tab=users');
   };
 
+  const nameRegex = /^[a-zA-Z\s]*$/; // Only alphabets and spaces allowed
+  if (!nameRegex.test(name)) {
+    alert('Name can only contain alphabets and spaces.');
+    return;
+  }
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-20 lg:px-8">
@@ -54,27 +60,32 @@ export default function SuppliersAndDistributers() {
             onSubmit={handleSubmit(onSubmit)}
             
           >
-            <div>
-              <Label
-                htmlFor="name"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Name
-              </Label>
-              <div className="mt-2">
-                <TextInput
-                  id="name"
-                  {...register('name', {
-                    required: 'Name is required',
-                  })}
-                  type="text"
-                  className=""
-                />
-                {errors.name && (
-                  <p className="text-red-500">{errors.name.message}</p>
-                )}
-              </div>
-            </div>
+           <div>
+        <Label
+          htmlFor="name"
+          className="block text-sm font-medium leading-6 text-gray-900"
+        >
+          Name
+        </Label>
+        <div className="mt-2">
+          <TextInput
+            id="name"
+            {...register('name', {
+              required: 'Name is required',
+              pattern: {
+                value: /^[a-zA-Z\s]*$/, // Only alphabets and spaces allowed
+                message: 'Name can only contain alphabets and spaces',
+              },
+            })}
+            type="text"
+            className=""
+          />
+          {errors.name && (
+            <p className="text-red-500">{errors.name.message}</p>
+          )}
+        </div>
+      </div>
+
             <div>
               <Label
                 htmlFor="email"
