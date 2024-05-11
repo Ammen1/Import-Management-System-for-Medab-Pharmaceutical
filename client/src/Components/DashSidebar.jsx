@@ -8,6 +8,11 @@ import {
   HiChartPie,
   HiPlus,
   HiUserGroup,
+  HiHome,
+  HiDatabase,
+  HiEye,
+  HiSpeakerphone,
+  HiOutlineEye,
 } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -114,26 +119,26 @@ export default function DashSidebar() {
       case 'manager':
         return (
           <>
+          <Link to='/'>
+              <Sidebar.Item
+                icon={HiHome}
+                label='Manager'
+                labelColor='dark'
+                as='div'
+              >
+                Back Home
+              </Sidebar.Item>
+            </Link>
             <Link to='/dashboard?tab=dash'>
               <Sidebar.Item
                 active={tab === 'dash' || !tab}
-                icon={HiChartPie}
+                icon={HiDatabase}
                 as='div'
               >
                 Dashboard
               </Sidebar.Item>
             </Link>
-            <Link to='/dashboard?tab=profile'>
-              <Sidebar.Item
-                active={tab === 'profile'}
-                icon={HiUser}
-                label='Manager'
-                labelColor='dark'
-                as='div'
-              >
-                Profile
-              </Sidebar.Item>
-            </Link>
+            
             <Link to='/dashboard?tab=my-orders'>
               <Sidebar.Item
                 active={tab === 'my-orders'}
@@ -182,7 +187,7 @@ export default function DashSidebar() {
             <Link to='/dashboard?tab=list-product'>
               <Sidebar.Item
                 active={tab === 'list-product'}
-                icon={HiAnnotation}
+                icon={HiEye}
                 as='div'
               >
                View product
@@ -192,7 +197,7 @@ export default function DashSidebar() {
             <Link to='/dashboard?tab=manage'>
               <Sidebar.Item
                 active={tab === 'manage'}
-                icon={HiAnnotation}
+                icon={HiUserGroup}
                 as='div'
               >
                 Manage Users
@@ -201,7 +206,7 @@ export default function DashSidebar() {
             <Link to='/dashboard?tab=generate'>
               <Sidebar.Item
                 active={tab === 'generate'}
-                icon={HiAnnotation}
+                icon={HiSpeakerphone}
                 as='div'
               >
               Generate report
@@ -210,7 +215,7 @@ export default function DashSidebar() {
             <Link to='/dashboard?tab=messagesd'>
               <Sidebar.Item
                 active={tab === 'messagesd'}
-                icon={HiAnnotation}
+                icon={HiEye}
                 as='div'
               >
                View Messages
