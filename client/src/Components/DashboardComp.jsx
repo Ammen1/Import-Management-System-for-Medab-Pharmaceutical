@@ -26,7 +26,7 @@ export default function DashboardComp() {
   const userInfo = useSelector(selectUserInfo);
 
   useEffect(() => {
-    if (userInfo.role === 'manager') {
+    if (userInfo?.role === 'manager') {
       const fetchUsers = async () => {
         try {
           const res = await fetch('http://localhost:8080/count/users');
@@ -45,10 +45,10 @@ export default function DashboardComp() {
 
       fetchUsers();
     }
-  }, [userInfo.role]);
+  }, [userInfo?.role]);
 
   useEffect(() => {
-    if (userInfo.role === 'manager') {
+    if (userInfo?.role === 'manager') {
       const fetchProduct = async () => {
         try {
           const res = await fetch('http://localhost:8080/count/products');
@@ -67,10 +67,10 @@ export default function DashboardComp() {
 
       fetchProduct();
     }
-  }, [userInfo.role]);
+  }, [userInfo?.role]);
 
   useEffect(() => {
-    if (userInfo.role === 'manager') {
+    if (userInfo?.role === 'manager') {
       const fetchOrder = async () => {
         try {
           const res = await fetch('http://localhost:8080/count/orders');
@@ -89,7 +89,7 @@ export default function DashboardComp() {
 
       fetchOrder(); 
     }
-  }, [userInfo.role]);
+  }, [userInfo?.role]);
 
   
   return (
