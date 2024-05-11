@@ -10,7 +10,7 @@ export default function DashMessage() {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        if (userInfo.id) {
+        if (userInfo?.id) {
             fetch(`http://localhost:8080/message/messages/all`)
                 .then(response => {
                     if (!response.ok) {
@@ -27,7 +27,7 @@ export default function DashMessage() {
                     console.error('Error fetching messages:', error);
                 });
         }
-    }, [userInfo.id]);
+    }, [userInfo?.id]);
 
     return (
         <div className="container w-full mx-auto px-4 py-8 ml-40 mt-14">
@@ -41,22 +41,21 @@ export default function DashMessage() {
                             <Timeline.Title>{message.subject}</Timeline.Title>
                             <Timeline.Body>{message.message}</Timeline.Body>
                             <div className="mt-4">
-                            <div className="text-xl text-white w-80 bg-gradient-to-r from-indigo-800 to-pink-900 via-gray-900">
-                                    <strong>User Role:</strong> {message.userId?.role}
+                            <div className="text-xl text-black w-80 bg-gradient-to-r ">
+                                <strong>User Role:</strong> {message.userId?.role}
                                 </div>
-                            <p className="text-sm text-gray-700">
+                            <p className="text-sm text-black">
                                     <strong>User Name:</strong> {message.userId?.name}
                                 </p>
-                                <p className="text-sm text-gray-700">
+                                <p className="text-sm text-black">
                                     <strong>User Email:</strong> {message.userId?.email}
                                 </p>
-                                <p className="text-sm text-gray-900 gap-8">
-                                    <strong>User Address:</strong> {message.userId.addresses[0]?.name}{" "}< br />
-                                    <strong>User state:</strong> {message.userId.addresses[0]?.state} {" "}< br />
-                                    <strong>User city:</strong> {message.userId.addresses[0]?.city}{" "}< br />
-                                    <strong>User email:</strong> {message.userId.addresses[0]?.email}{" "} < br />
-                                    <strong>User phone:</strong> {message.userId.addresses[0]?.phone}<br />
-                                   <h1 className=' w-44  text-white text-xl bg-gradient-to-r from-indigo-800 to-pink-900 via-gray-900'> Ethiopia</h1>
+                                <p className="text-sm text-black gap-8">
+                                    <strong>ddress:</strong> {message.userId.addresses[0]?.name}{" "}< br />
+                                    <strong>state:</strong> {message.userId.addresses[0]?.state} {" "}< br />
+                                    <strong>city:</strong> {message.userId.addresses[0]?.city}{" "}< br />
+                                    <strong>phone:</strong> {message.userId.addresses[0]?.phone}<br />
+                                   <strong className=' w-44  text-black text-xl bg-gradient-to-r '> Ethiopia</strong>
                                     <div className=' -translate-x-20'><Flags.ET title="Ethiopia " className="  w-44 h-5 mt-5 "/></div>
                                 </p> 
                                 </div>
