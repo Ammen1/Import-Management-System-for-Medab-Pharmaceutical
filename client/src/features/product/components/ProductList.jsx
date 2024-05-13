@@ -504,14 +504,14 @@ function ProductGrid({ products, status }) {
               )}
             </div>
             </Link> 
-            {product.user?.role === 'manager' || userInfo.role === 'distributor' ? null : (
+            {product.user?.role === 'manager' || userInfo.role === 'distributor' || userInfo.role === "supplier" ? null : (
             <div className="flex justify-center w-full p-1">
             <Button onClick={() => handleSendEmail(product.user?.id)} className="bg-gradient-to-br from-indigo-500 to-pink-500 via-indigo-600 hover:bg-gradient-to-bl hover:from-emerald-700 hover:to-sky-600 hover:via-slate-700  rounded">
               Contact Suppliers
             </Button>
           </div>
           )}
-          {product.user?.role === 'supplier' || userInfo.role === 'manager' ? null : (
+          {product.user?.role === 'supplier' || userInfo.role === 'manager' || userInfo.role === "supplier" ? null : (
             <div className="flex justify-center w-full p-1">
             <Button onClick={() => handleSendEmail(userInfo.id)} className="bg-gradient-to-br from-indigo-500 to-pink-500 via-indigo-600 hover:bg-gradient-to-bl hover:from-emerald-700 hover:to-sky-600 hover:via-slate-700  rounded">
               Contact Manager
