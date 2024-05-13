@@ -18,10 +18,7 @@ const Services = () => {
 
     return (
         <section className="max-w-screen-xl mx-auto px-6 py-6 pb-24">
-            {/* heading  */}
             <Heading title="Services" />
-
-            {/* Swiper for pagination */}
             <Swiper
                 className="mySwiper py-12 "
                 slidesPerView={1}
