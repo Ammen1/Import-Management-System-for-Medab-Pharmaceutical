@@ -18,7 +18,7 @@ export default function ProductReportForm() {
 
     try {
       // Send a POST request to generate the product report
-      const response = await axios.post('http://localhost:8080/backend/products/generate', {
+      const response = await axios.post('http://localhost:8080/backend/product/generate', {
         customerName,
         medicineName,
         quantity,
