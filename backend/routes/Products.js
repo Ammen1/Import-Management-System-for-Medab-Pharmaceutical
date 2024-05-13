@@ -18,8 +18,8 @@ router.post('/', createProduct)
            }
            res.send('ok')
       })
-      router.post('/generate', generateProductReports)
-      router.post('/create-and-send-suppliers', createAndSendSuppliers);
+      // router.post('/generate', generateProductReports)
+      // router.post('/create-and-send-suppliers', createAndSendSuppliers);
 
       
 

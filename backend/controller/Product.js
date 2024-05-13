@@ -2,6 +2,15 @@ const { Product } = require('../model/Product');
 const { User } = require('../model/User');
 const { ContactSuppliers } = require('../model/ContactSuppliers');
 const { sendMail } = require('../services/common')
+const PDFDocument = require('pdfkit');
+const fs = require('fs');
+const nodemailer = require('nodemailer');
+
+
+const { ManagerInput } = require('../model/Report.model')
+
+
+
 
 exports.createProduct = async (req, res) => {
   const product = new Product(req.body);
