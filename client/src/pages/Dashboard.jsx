@@ -16,6 +16,7 @@ import ProductList from '../features/product/components/ProductList';
 import UserOrdersPage from './UserOrdersPage';
 import SuppliersAndDistributers from '../Components/SuppliersAndDistributers';
 import DashSuppliers from '../Components/DashSuppliers';
+import Generating from '../Components/Generating';
 
 export default function Dashboard() {
   const location = useLocation();
@@ -39,15 +40,16 @@ export default function Dashboard() {
       {tab === 'dash' && <DashboardComp />}
       {tab === 'products' && <Products />}
       {tab === 'orders' && <Orders />}
-      {tab==='addusers' && <AddUsers />}
-      {tab==='add-product' && <AddProduct />}
-      {tab==='productable' && <ProductTable />}
-      {tab==='add-users' && <AddUsers/>}
-      {tab==='list-product' && <ProductList/>}
-      {tab==='my-orders' && <UserOrdersPage/>}
-      {tab==='suppliers-and-distributers' && <SuppliersAndDistributers />}
-      {tab==='manage' && <DashSuppliers />}
-      {tab==='table-product' && <ProductTable />}
+      {tab ==='addusers' && <AddUsers />}
+      {tab ==='add-product' && <AddProduct />}
+      {tab ==='productable' && <ProductTable />}
+      {tab ==='add-users' && <AddUsers/>}
+      {tab ==='list-product' && <ProductList/>}
+      {tab ==='my-orders' && <UserOrdersPage/>}
+      {tab ==='suppliers-and-distributers' && <SuppliersAndDistributers />}
+      {tab ==='manage' && <DashSuppliers />}
+      {tab ==='table-product' && <ProductTable />}
+      {tab === 'generate' && <Generating />}
     </div>
   );
 }

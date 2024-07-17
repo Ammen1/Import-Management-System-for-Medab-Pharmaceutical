@@ -16,6 +16,22 @@ exports.createProduct = async (req, res) => {
   }
 };
 
+// exports.createProduct = async (req, res) => {
+//   if (req.user.role !== 'supplier') {
+//     return res.status(403).json({ error: 'Forbidden. You do not have permission to perform this action.' });
+//   }
+
+//   const product = new Product(req.body);
+//   product.discountPrice = Math.round(product.price * (1 - product.discountPercentage / 100));
+
+//   try {
+//     const doc = await product.save();
+//     res.status(201).json(doc);
+//   } catch (err) {
+//     res.status(400).json(err);
+//   }
+// };
+
 exports.fetchAllProducts = async (req, res) => {
   let condition = {}
   if(!req.query.admin){
