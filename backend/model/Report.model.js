@@ -7,7 +7,7 @@ const reportSchema = new mongoose.Schema({
   quantity: { type: Number, required: true },
   totalPrice: { type: Number, required: true },
   paymentMethod: { type: String, required: true },
-  description: { type: String } // Adding description field
+  description: { type: String } 
 });
 
 exports.ManagerInput = mongoose.model("ManagerInput", reportSchema);

@@ -7,21 +7,29 @@ import {
   HiAnnotation,
   HiChartPie,
   HiPlus,
+  HiUserGroup,
+  HiHome,
+  HiDatabase,
+  HiEye,
+  HiSpeakerphone,
+  HiOutlineEye,
 } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { selectLoggedInUser } from '../features/auth/authSlice';
 import { selectUserInfo } from '../features/user/userSlice';
 import Header from './Header';
+import Logout from '../features/auth/components/Logout';
+import { selectLoggedInUser, signOutAsync } from '../features/auth/authSlice';
 
 export default function DashSidebar() {
   const location = useLocation();
-  const dispatch = useDispatch();
   const userInfo = useSelector(selectUserInfo);
   const [tab, setTab] = useState('');
+  const dispatch = useDispatch();
+  const user = useSelector(selectLoggedInUser);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -57,15 +65,6 @@ export default function DashSidebar() {
       case 'admin':
         return (
           <>
-            <Link to='/dashboard?tab=dash'>
-              <Sidebar.Item
-                active={tab === 'dash' || !tab}
-                icon={HiChartPie}
-                as='div'
-              >
-                Dashboard
-              </Sidebar.Item>
-            </Link>
             <Link to='/dashboard?tab=profile'>
               <Sidebar.Item
                 active={tab === 'profile'}
@@ -77,11 +76,10 @@ export default function DashSidebar() {
                 Profile
               </Sidebar.Item>
             </Link>
-            {/* Add other admin-related sidebar items here */}
             <Link to='/dashboard?tab=add-users'>
               <Sidebar.Item
                 active={tab === 'add-users'}
-                icon={HiAnnotation}
+                icon={HiPlus}
                 as='div'
               >
                 Create Account
@@ -90,10 +88,10 @@ export default function DashSidebar() {
             <Link to='/dashboard?tab=users'>
               <Sidebar.Item
                 active={tab === 'users'}
-                icon={HiAnnotation}
+                icon={HiUserGroup}
                 as='div'
               >
-               Manager 
+               Manage
               </Sidebar.Item>
             </Link>
            
@@ -106,31 +104,41 @@ export default function DashSidebar() {
                 Message 
               </Sidebar.Item>
             </Link>
+                       
+            <Link to='/dashboard?tab=comments'>
+              <Sidebar.Item
+                active={tab === 'comments'}
+                icon={HiPlus}
+                as='div'
+              >
+                Message 
+              </Sidebar.Item>
+            </Link>
           </>
         );
       case 'manager':
         return (
           <>
+          <Link to='/'>
+              <Sidebar.Item
+                icon={HiHome}
+                label='Manager'
+                labelColor='dark'
+                as='div'
+              >
+                Back Home
+              </Sidebar.Item>
+            </Link>
             <Link to='/dashboard?tab=dash'>
               <Sidebar.Item
                 active={tab === 'dash' || !tab}
-                icon={HiChartPie}
+                icon={HiDatabase}
                 as='div'
               >
                 Dashboard
               </Sidebar.Item>
             </Link>
-            <Link to='/dashboard?tab=profile'>
-              <Sidebar.Item
-                active={tab === 'profile'}
-                icon={HiUser}
-                label='Manager'
-                labelColor='dark'
-                as='div'
-              >
-                Profile
-              </Sidebar.Item>
-            </Link>
+            
             <Link to='/dashboard?tab=my-orders'>
               <Sidebar.Item
                 active={tab === 'my-orders'}
@@ -138,6 +146,24 @@ export default function DashSidebar() {
                 as='div'
               >
                Order item
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=add-brand'>
+              <Sidebar.Item
+                active={tab === 'add-brand'}
+                icon={HiPlus}
+                as='div'
+              >
+                Add Brand 
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=add-category'>
+              <Sidebar.Item
+                active={tab === 'add-category'}
+                icon={HiPlus}
+                as='div'
+              >
+                Add Category 
               </Sidebar.Item>
             </Link>
             <Link to='/dashboard?tab=add-product'>
@@ -161,7 +187,7 @@ export default function DashSidebar() {
             <Link to='/dashboard?tab=list-product'>
               <Sidebar.Item
                 active={tab === 'list-product'}
-                icon={HiAnnotation}
+                icon={HiEye}
                 as='div'
               >
                View product
@@ -171,7 +197,7 @@ export default function DashSidebar() {
             <Link to='/dashboard?tab=manage'>
               <Sidebar.Item
                 active={tab === 'manage'}
-                icon={HiAnnotation}
+                icon={HiUserGroup}
                 as='div'
               >
                 Manage Users
@@ -180,27 +206,27 @@ export default function DashSidebar() {
             <Link to='/dashboard?tab=generate'>
               <Sidebar.Item
                 active={tab === 'generate'}
-                icon={HiAnnotation}
+                icon={HiSpeakerphone}
                 as='div'
               >
               Generate report
               </Sidebar.Item>
             </Link>
+            <Link to='/dashboard?tab=messagesd'>
+              <Sidebar.Item
+                active={tab === 'messagesd'}
+                icon={HiEye}
+                as='div'
+              >
+               View Messages
+              </Sidebar.Item>
+            </Link>   
           </>
         );
       case 'distributor':
         return (
           <>
-            <Link to='/dashboard?tab=dash'>
-              <Sidebar.Item
-                active={tab === 'dash' || !tab}
-                icon={HiChartPie}
-                as='div'
-              >
-                Dashboard
-              </Sidebar.Item>
-            </Link>
-            <Link to='/dashboard?tab=profile'>
+          <Link to='/dashboard?tab=profile'>
               <Sidebar.Item
                 active={tab === 'profile'}
                 icon={HiUser}
@@ -230,15 +256,15 @@ export default function DashSidebar() {
               </Sidebar.Item>
             </Link>
            
-            <Link to='/dashboard?tab=comments'>
+            <Link to='/dashboard?tab=messagesds'>
               <Sidebar.Item
-                active={tab === 'comments'}
+                active={tab === 'messagesds'}
                 icon={HiAnnotation}
                 as='div'
               >
-                View massage
+               View Messages
               </Sidebar.Item>
-            </Link>
+            </Link> 
           </>
         );  
 
@@ -274,15 +300,6 @@ export default function DashSidebar() {
                 Product 
               </Sidebar.Item>
             </Link>
-            <Link to='/dashboard?tab=message'>
-              <Sidebar.Item
-                active={tab === 'message'}
-                icon={HiAnnotation}
-                as='div'
-              >
-                View message
-              </Sidebar.Item>
-            </Link>
             <Link to='/dashboard?tab=orders'>
               <Sidebar.Item
                 active={tab === 'orders'}
@@ -301,7 +318,15 @@ export default function DashSidebar() {
                View product
               </Sidebar.Item>
             </Link>
-        
+            <Link to='/dashboard?tab=messages'>
+              <Sidebar.Item
+                active={tab === 'messages'}
+                icon={HiAnnotation}
+                as='div'
+              >
+               View Messages
+              </Sidebar.Item>
+            </Link>            
           </>
         );
       default:
@@ -311,18 +336,19 @@ export default function DashSidebar() {
 
   return (
     <>
-      <div className=' w-screen -translate-x-4 fixed '><Header /></div>
-      <Sidebar className='w-full md:w-56 lg:fixed mt-16 '>
+      {/* <div className=' w-screen -translate-x-4  h-auto '><Header /></div> */}
+      <Sidebar className='w-full h-auto md:w-56 lg:fixed  '>
         <Sidebar.Items>
-          <Sidebar.ItemGroup className='flex flex-col gap-1'>
+          <Sidebar.ItemGroup className='flex flex-col gap-1 h-screen'>
             {/* Render sidebar items based on user's role */}
             {renderSidebarItems()}
-            <Sidebar.Item
+            <Sidebar.Item>
+            <Link to="/logout"
               icon={HiArrowSmRight}
               className='cursor-pointer'
-              onClick={handleSignout}
             >
               Sign Out
+            </Link>
             </Sidebar.Item>
           </Sidebar.ItemGroup>
         </Sidebar.Items>

@@ -18,7 +18,7 @@ export default function ProductReportForm() {
 
     try {
       // Send a POST request to generate the product report
-      const response = await axios.post('http://localhost:8080/backend/products/generate', {
+      const response = await axios.post('http://localhost:8080/backend/product/generate', {
         customerName,
         medicineName,
         quantity,
@@ -38,9 +38,9 @@ export default function ProductReportForm() {
   };
 
   return (
-    <div className="container mx-auto py-8 mt-20">
+    <div className="container mx-auto py-8 mt-20 lg:ml-36 ml-10">
       <h2 className="text-2xl font-bold mb-4">Generate Product Report</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4 lg:mr-20 mr-20 ">
         <div>
           <Label htmlFor="customerName">Customer Name:</Label>
           <TextInput

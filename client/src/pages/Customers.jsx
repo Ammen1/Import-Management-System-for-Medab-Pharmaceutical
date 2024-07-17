@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export default function Coffee() {
+export default function Customers() {
   return (
     <div className="max-w-screen-xl mx-auto px-8 py-12">
       <h2 className="text-3xl font-semibold text-center">Our Customers</h2>

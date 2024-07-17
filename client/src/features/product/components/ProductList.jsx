@@ -30,6 +30,7 @@ import Pagination from '../../common/Pagination';
 import { Grid } from 'react-loader-spinner';
 import { selectUserInfo } from '../../user/userSlice';
 import { Button, TextInput } from 'flowbite-react';
+import axios from 'axios';
 
 const sortOptions = [
   { name: 'Best Rating', sort: 'rating', order: 'desc', current: false },
@@ -49,6 +50,8 @@ export default function ProductList() {
   const totalItems = useSelector(selectTotalItems);
   const status = useSelector(selectProductListStatus);
   const userInfo = useSelector(selectUserInfo);
+  // console.log("amen",userInfo.id)
+  console.log("porduct id", products)
   const filters = [
     {
       id: 'category',
@@ -111,6 +114,9 @@ export default function ProductList() {
     dispatch(fetchBrandsAsync());
     dispatch(fetchCategoriesAsync());
   }, []);
+
+
+
 
   return (
     <div className="bg-white">
@@ -398,7 +404,26 @@ function DesktopFilter({ handleFilter, filters }) {
   );
 }
 
-function ProductGrid({ products, status, userInfo }) {
+
+function ProductGrid({ products, status }) {
+  const userInfo = useSelector(selectUserInfo);
+
+  const handleSendEmail = async (userId) => {
+    try {
+      const subject = prompt('Enter the subject of the job offer:');
+      const message = prompt('Enter the message for the job offer:');
+      await axios.post("http://localhost:8080/backend/product/create-and-send-suppliers", {
+        userId,
+        subject,
+        message,
+      });
+      alert('sent successfully!');
+    } catch (error) {
+      console.error('Error sending job offer:', error);
+      alert('Failed to send job offer. Please try again later.');
+    }
+  };
+
   return (
     <div className="bg-white ">
       <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
@@ -416,61 +441,84 @@ function ProductGrid({ products, status, userInfo }) {
             />
           ) : null}
           {products.map((product) => (
-            <Link to={`/product-detail/${product.id}`} key={product.id}>
-              <div className="group relative border-solid border-2 p-2 border-gray-200">
-                <div className="min-h-50 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
-                  <img
-                    src={product.thumbnail}
-                    alt={product.title}
-                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                  />
-                </div>
-                <div className="mt-4 flex justify-between">
-                  <div>
-                    <h3 className="text-sm text-gray-700">
-                      <div href={product.thumbnail}>
-                        <span aria-hidden="true" className="absolute inset-0" />
-                        {product.title}
-                      </div>
-                    </h3>
-                    <p className="text-sm text-gray-700">
-                      batch number {product.batchNumber}
-                    </p>
-                    <p className="text-sm text-gray-700">
-                      Expiry Date: {product.expiryDate && product.expiryDate < Date.now() ? "Expired" : product.expiryDate ? new Date(product.expiryDate).toLocaleDateString() : 'Not specified'}
-                    </p>
-                    <p className="mt-1 text-sm text-gray-500">
-                      <StarIcon className="w-6 h-6 inline"></StarIcon>
-                      <span className=" align-bottom">{product.rating}</span>
-                    </p>
-                    {/* Display the user's name */}
-                    <p className="mt-1 text-sm text-gray-700">
-                      Posted by: {product.user}
-                    </p>
-                    
-                   
-                  </div>
-                  <div>
-                    <p className="text-sm block font-medium text-gray-900">
-                      ${product.discountPrice}
-                    </p>
-                    <p className="text-sm block line-through font-medium text-gray-400">
-                      ${product.price}
-                    </p>
-                  </div>
-                </div>
-                {product.deleted && (
-                  <div>
-                    <p className="text-sm text-red-400">product deleted</p>
-                  </div>
-                )}
-                {product.stock <= 0 && (
-                  <div>
-                    <p className="text-sm text-red-400">out of stock</p>
-                  </div>
-                )}
+            <div key={product.id} >
+            <Link to={`/product-detail/${product.id}`} > 
+            <div key={product.id} className="group relative border-solid border-2 p-2 border-gray-200">
+                          
+              <div className="min-h-50 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
+                <img
+                  src={product.thumbnail}
+                  alt={product.title}
+                  className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                />
               </div>
-            </Link>
+              
+              <div className="mt-4 flex justify-between">              
+              <div >
+                <div>
+                  <h3 className="text-sm text-gray-700">
+                    <div href={product.thumbnail}>
+                      <span aria-hidden="true" className="absolute inset-0" />
+                      {product.title}
+                    </div>
+                  </h3>
+                  <p className="text-sm text-gray-700">
+                    batch number {product.batchNumber}
+                  </p>
+                  <p className="text-sm text-gray-700">
+                    Expiry Date: {product.expiryDate && product.expiryDate < Date.now() ? "Expired" : product.expiryDate ? new Date(product.expiryDate).toLocaleDateString() : 'Not specified'}
+                  </p>
+                  <p className="mt-1 text-sm text-gray-500">
+                    <StarIcon className="w-6 h-6 inline"></StarIcon>
+                    <span className=" align-bottom">{product.rating}</span>
+                  </p>
+                  <p className="mt-1 text-sm text-gray-700">
+                    Posted by: {product.user?.role}
+                  </p> 
+                  <p className="mt-1 text-sm text-gray-700">
+                      {product.user?.role === 'manager' ? 'Manager Name:' : 'Supplier Name:'} {product.user?.name}
+                    </p>  
+                  </div>
+                 
+                
+                </div>
+                
+                <div>
+                  <p className="text-sm block font-medium text-gray-900">
+                    ${product.discountPrice}
+                  </p>
+                  <p className="text-sm block line-through font-medium text-gray-400">
+                    ${product.price}
+                  </p>
+                </div>
+                </div> 
+              {product.deleted && (
+                <div>
+                  <p className="text-sm text-red-400">product deleted</p>
+                </div>
+              )}
+              {product.stock <= 0 && (
+                <div>
+                  <p className="text-sm text-red-400">out of stock</p>
+                </div>
+              )}
+            </div>
+            </Link> 
+            {product.user?.role === 'manager' || userInfo.role === 'distributor' || userInfo.role === "supplier" ? null : (
+            <div className="flex justify-center w-full p-1">
+            <Button onClick={() => handleSendEmail(product.user?.id)} className="bg-gradient-to-br from-indigo-500 to-pink-500 via-indigo-600 hover:bg-gradient-to-bl hover:from-emerald-700 hover:to-sky-600 hover:via-slate-700  rounded">
+              Contact Suppliers
+            </Button>
+          </div>
+          )}
+          {product.user?.role === 'supplier' || userInfo.role === 'manager' || userInfo.role === "supplier" ? null : (
+            <div className="flex justify-center w-full p-1">
+            <Button onClick={() => handleSendEmail(userInfo.id)} className="bg-gradient-to-br from-indigo-500 to-pink-500 via-indigo-600 hover:bg-gradient-to-bl hover:from-emerald-700 hover:to-sky-600 hover:via-slate-700  rounded">
+              Contact Manager
+            </Button>
+          </div>
+          )}
+          </div>
           ))}
           
         </div>

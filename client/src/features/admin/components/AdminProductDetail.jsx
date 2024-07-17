@@ -355,10 +355,17 @@ export default function AdminProductDetail() {
               )}
 
               <div className="mt-10">
-                <h2 className="text-sm font-medium text-gray-900">Details</h2>
+                <h2 className="text-sm font-medium text-gray-900">Product Specifications</h2>
 
                 <div className="mt-4 space-y-6">
-                  <p className="text-sm text-gray-600">{product.description}</p>
+                  <p className="text-sm text-gray-600">{product.productSpecifications}</p>
+                </div>
+              </div>
+              <div className="mt-10">
+                <h2 className="text-sm font-medium text-gray-900">Product safety Info</h2>
+
+                <div className="mt-4 space-y-6">
+                  <p className="text-sm text-gray-600">{product.safetyInfo}</p>
                 </div>
               </div>
             </div>

@@ -31,12 +31,15 @@ export default function DashUsers() {
   const handleEditUser = (user) => {
     setEditedUser(user); // Set the selected user for editing
     setShowModal(true); // Open the modal for editing
+    
+
   };
 
-  const handleUpdateUser = (e) => {
-    e.preventDefault();
+  const handleUpdateUser = () => {
     dispatch(updateUserAsync(editedUser));
     setShowModal(false); // Close the modal after updating the user
+    // history('/dashboard?tab=manage');
+    window.location.reload(); 
   };
 
   useEffect(() => {
@@ -45,7 +48,7 @@ export default function DashUsers() {
 
   return (
     <div className='table-auto lg:mt-20 overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
-      {userInfo && userInfo.role === 'admin' ? (
+      {userInfo && userInfo.role === 'admin' || userInfo.role === 'manager' ? (
         <>
           <Table hoverable className='shadow-md'>
             <Table.Head>

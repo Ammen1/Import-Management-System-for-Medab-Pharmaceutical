@@ -6,7 +6,7 @@ import Banner from "../Components/Header/Banner";
 import Services from "../Components/Services/Services";
 import ContactScreen from "../screens/ContactScreen";
 import Testimonial from "../Components/Testimonial/Testimonial";
-import Coffee from "./Coffee";
+import Customers from "./Customers";
 import Component from "../Components/Header/Componen";
 function Home() {
     return ( 
@@ -14,12 +14,10 @@ function Home() {
             <NavBar>
                 <Banner></Banner>
                 <div className=" ">
-                <Coffee></Coffee>
+                <Customers></Customers>
                 <Component></Component>
                 <Services></Services>
                 </div>
-
-
                 <ContactScreen></ContactScreen>
                 
             </NavBar>

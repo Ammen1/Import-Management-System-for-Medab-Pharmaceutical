@@ -144,7 +144,12 @@ export default function ProductDetail() {
           <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
             <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
               <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-                {product.title}
+              Product name : {product.title}
+              </h1>
+            </div>
+            <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+              <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+              Brand Name : {product.brand}
               </h1>
             </div>
 
@@ -225,7 +230,7 @@ export default function ProductDetail() {
                   </div>
                 )}
 
-                {/* Sizes */}
+                {/* Sizes
                 {product.sizes && product.sizes.length > 0 && (
                   <div className="mt-10">
                     <div className="flex items-center justify-between">
@@ -308,7 +313,10 @@ export default function ProductDetail() {
                       </div>
                     </RadioGroup>
                   </div>
-                )}
+                )} */}
+                <div className=' text-3xl mt-5'>
+                  <h1>All sizes are Available  </h1>
+                </div>
 
                 <button
                   onClick={handleCart}
@@ -354,10 +362,22 @@ export default function ProductDetail() {
               )}
 
               <div className="mt-10">
-                <h2 className="text-sm font-medium text-gray-900">Details</h2>
+                <h2 className="text-sm font-medium text-gray-900">Product Specifications</h2>
 
                 <div className="mt-4 space-y-6">
-                  <p className="text-sm text-gray-600">{product.description}</p>
+                  <p className="text-sm text-gray-600">{product.productSpecifications}</p>
+                </div>
+              </div>
+              <div className="mt-10">
+                <h2 className="text-sm font-medium text-gray-900">Product safety Info</h2>
+                <div className="mt-4 space-y-6">
+                  <p className="text-sm text-gray-600">{product.safetyInfo}</p>
+                </div>
+              </div>
+              <div className="mt-10">
+                <h2 className="text-sm font-medium text-gray-900">Product regulatory Info</h2>
+                <div className="mt-4 space-y-6">
+                  <p className="text-sm text-gray-600">{product.safetyInfo}</p>
                 </div>
               </div>
             </div>

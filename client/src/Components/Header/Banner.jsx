@@ -23,7 +23,7 @@ const Banner = () => {
                              healthcare...</p>
                         </div>
                      
-                        <Button className="btn-primary  poppins w-48 mt-6" text="" onClick={() => history('/products')} >Explore our shop</Button>
+                        <Button className="btn-primary  poppins w-48 mt-6" text="" onClick={() => history('/list-product')} >Explore our shop</Button>
                     </div>
                 </Fade>
                 <Fade right>

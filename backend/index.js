@@ -13,12 +13,14 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 const cookieParser = require('cookie-parser');
 const { createProduct } = require('./controller/Product');
 const productsRouter = require('./routes/Products');
+const productRouter = require('./routes/Product');
 const categoriesRouter = require('./routes/Categories');
 const brandsRouter = require('./routes/Brands');
 const usersRouter = require('./routes/Users');
+const countRouter = require('./routes/Count.Router');
 const authRouter = require('./routes/Auth');
 const ChatRoute= require('./routes/ChatRoute.js')
-const MessageRoute= require('./routes/MessageRoute.js')
+const MessageRoute= require('./routes/MessageRoute')
 const cartRouter = require('./routes/Cart');
 const ordersRouter = require('./routes/Order');
 const { User } = require('./model/User');
@@ -95,15 +97,17 @@ server.use(
 );
 server.use(express.json()); // to parse req.body
 
-server.use('/backend/products', productsRouter.router);
-server.use('/backend/categories', passport.authenticate('jwt'), categoriesRouter.router);
-server.use('/backend/brands', passport.authenticate('jwt'), brandsRouter.router);
+server.use('/backend/products', passport.authenticate('jwt'), productsRouter.router);
+server.use('/backend/product',  productRouter.router);
+server.use('/backend/categories',  categoriesRouter.router);
+server.use('/backend/brands', brandsRouter.router);
 server.use('/backend/users',  usersRouter.router);
 server.use('/backend/auth', authRouter.router);
 server.use('/backend/cart', passport.authenticate('jwt'), cartRouter.router);
 server.use('/backend/orders', passport.authenticate('jwt'), ordersRouter.router);
 server.use('/chat', ChatRoute.router)
 server.use('/message', MessageRoute.router)
+server.use('/count', countRouter.router)
 
 // this line we add to make react router work in case other routes don't match
 server.get('*', (req, res) =>

@@ -1,24 +1,27 @@
+const { ContactSuppliers } = require('../model/ContactSuppliers');
 
-const { MessageModel } = require('../model/messageModel');
-exports.addMessage = async (req, res) => {
-  const { chatId, senderId, text } = req.body;
-  const message = new MessageModel({
-    chatId,
-    senderId,
-    text,
-  });
+
+exports.getAllMessages = async (req, res) => {
   try {
-    const result = await message.save();
-    res.status(200).json(result);
+    const allMessages = await ContactSuppliers.find().populate('userId');
+    console.log(allMessages);
+    res.status(200).json(allMessages);
   } catch (error) {
     res.status(500).json(error);
   }
-};
+}
+
 
 exports.getMessages = async (req, res) => {
-  const { chatId } = req.params;
+  const { userId } = req.params;
   try {
-    const result = await MessageModel.find({ chatId });
+    let query;
+    if (userId === 'all') {
+      query = {}; // No filter when userId is 'all'
+    } else {
+      query = { userId }; // Filter messages by userId
+    }
+    const result = await ContactSuppliers.find(query).populate('userId');
     console.log(result)
     res.status(200).json(result);
   } catch (error) {

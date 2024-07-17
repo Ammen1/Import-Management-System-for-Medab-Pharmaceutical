@@ -45,9 +45,12 @@ export default function UserOrders() {
                         <div className="ml-4 flex flex-1 flex-col">
                           <div>
                             <div className="flex justify-between text-base font-medium text-gray-900">
+                             
                               <h3>
-                                <a href={item.product.id}>{item.product.title}</a>
-                              </h3>
+                              <a href={`http://localhost:3000/product-detail/${item.product.id}`}>{item.product.title}</a>
+                            </h3>
+
+                             
                               <p className="ml-4">${item.product.discountPrice}</p>
                             </div>
                             <p className="mt-1 text-sm text-gray-500">

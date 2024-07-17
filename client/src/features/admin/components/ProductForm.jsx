@@ -15,6 +15,9 @@ import Modal from '../../common/Modal';
 import { useAlert } from 'react-alert';
 import { Button, Card, Label, Select, TextInput, Textarea } from 'flowbite-react';
 
+import { selectUserInfo } from '../../user/userSlice';
+
+
 function ProductForm() {
   const {
     register,
@@ -30,27 +33,50 @@ function ProductForm() {
   const selectedProduct = useSelector(selectProductById);
   const [openModal, setOpenModal] = useState(null);
   const alert = useAlert();
+  const userInfo = useSelector(selectUserInfo);
+
   
 
   const colors = [
-    {
-      name: 'White',
-      class: 'bg-white',
-      selectedClass: 'ring-gray-400',
-      id: 'white',
-    },
-    {
-      name: 'Gray',
-      class: 'bg-gray-200',
-      selectedClass: 'ring-gray-400',
-      id: 'gray',
-    },
-    {
-      name: 'Black',
-      class: 'bg-gray-900',
-      selectedClass: 'ring-gray-900',
-      id: 'black',
-    },
+    
+      {
+        name: 'White',
+        class: 'bg-white',
+        selectedClass: 'ring-gray-400',
+        id: 'white',
+      },
+      {
+        name: 'Light Gray',
+        class: 'bg-gray-100',
+        selectedClass: 'ring-gray-400',
+        id: 'light-gray',
+      },
+      {
+        name: 'Dark Gray',
+        class: 'bg-gray-500',
+        selectedClass: 'ring-gray-600',
+        id: 'dark-gray',
+      },
+      {
+        name: 'Silver',
+        class: 'bg-gray-300',
+        selectedClass: 'ring-gray-400',
+        id: 'silver',
+      },
+      {
+        name: 'Charcoal',
+        class: 'bg-gray-700',
+        selectedClass: 'ring-gray-800',
+        id: 'charcoal',
+      },
+      {
+        name: 'Black',
+        class: 'bg-gray-900',
+        selectedClass: 'ring-gray-900',
+        id: 'black',
+      }
+    
+    
   ];
 
   const sizes = [
@@ -130,6 +156,7 @@ function ProductForm() {
             product.highlight3,
             product.highlight4,
           ];
+          product.user = userInfo.id;
           product.rating = 0;
           if (product.colors) {
             product.colors = product.colors.map((color) =>
@@ -185,15 +212,21 @@ function ProductForm() {
                 </Label>
                 <div className="mt-2">
                   <div className=" ">
-                    <TextInput
-                      type="text"
-                      {...register('title', {
-                        required: 'name is required',
-                      })}
-                      id="title"
-                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    />
-                  </div>
+                <TextInput
+                type="text"
+                {...register('title', {
+                  required: 'Name is required',
+                  pattern: {
+                    value: /^[a-zA-Z\s]*$/, 
+                    message: 'Please enter a valid name',
+                  },
+                })}
+                id="title"
+                className={`block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 ${
+                  errors.title ? 'input-error' : 'Please enter a valid name' 
+                }`}
+              />
+               </div>
                 </div>
               </div>
               
@@ -204,59 +237,78 @@ function ProductForm() {
                 >
                   regulatoryInfo
                 </Label>
-                <div className="mt-2">
+                <div className="mt-2 border">
                   <div className=" ">
-                    <TextInput
-                      type="text"
-                      {...register('regulatoryInfo', {
-                        required: 'regulatory Info is required',
-                      })}
-                      id="regulatoryInfo"
-                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    />
+                  <Textarea
+                    type="text"
+                    {...register('regulatoryInfo', {
+                      required: 'Regulatory Info is required',
+                      pattern: {
+                        value: /^[a-zA-Z0-9.,!?'"() ]*$/, // Allow alphabetic characters, numbers, and common punctuation marks
+                        message: 'Please enter a valid regulatory information without special characters',
+                      },
+                    })}
+                    id="regulatoryInfo"
+                    className={`block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 ${
+                      errors.regulatoryInfo ? 'input-error' : 'Please enter a valid regulatory information without special characters'
+                    }`}
+                  />
+
                   </div>
                 </div>
               </div>
               <div className="sm:col-span-6">
-                <Label
-                  htmlFor="title"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  product Specifications
-                </Label>
-                <div className="mt-2">
-                  <div className=" ">
-                    <TextInput
-                      type="text"
-                      {...register('productSpecifications', {
-                        required: 'product Specifications is required',
-                      })}
-                      id="productSpecifications"
-                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    />
-                  </div>
+              <Label
+                htmlFor="productSpecifications"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Product Specifications
+              </Label>
+              <div className="mt-2 border">
+                <div className="">
+                  <Textarea
+                    {...register('productSpecifications', {
+                      required: 'Product Specifications is required',
+                    })}
+                    id="productSpecifications"
+                    className={`block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 ${
+                      errors.productSpecifications ? 'input-error' : ''
+                    }`}
+                  />
+                  {errors.productSpecifications && (
+                    <span className="text-red-500 text-sm mt-1">
+                      {errors.productSpecifications.message}
+                    </span>
+                  )}
                 </div>
               </div>
-              <div className="sm:col-span-6">
-                <Label
-                  htmlFor="title"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                safety Info
-                </Label>
-                <div className="mt-2">
-                  <div className="">
-                    <TextInput
-                      type="text"
-                      {...register('safetyInfo', {
-                        required: 'safety Info is required',
-                      })}
-                      id="safetyInfo"
-                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    />
-                  </div>
+            </div>
+            <div className="sm:col-span-6">
+              <Label
+                htmlFor="safetyInfo"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Safety Info
+              </Label>
+              <div className="mt-2 border">
+                <div className="">
+                  <Textarea
+                    {...register('safetyInfo', {
+                      required: 'Safety Info is required',
+                    })}
+                    id="safetyInfo"
+                    className={`block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 ${
+                      errors.safetyInfo ? 'input-error' : ''
+                    }`}
+                  />
+                  {errors.safetyInfo && (
+                    <span className="text-red-500 text-sm mt-1">
+                      {errors.safetyInfo.message}
+                    </span>
+                  )}
                 </div>
               </div>
+            </div>
               <div className="sm:col-span-6">
                 <Label
                   htmlFor="title"
@@ -613,7 +665,7 @@ function ProductForm() {
                   ))}
                 </div>
               </div>
-
+{/* 
               <div className="col-span-full">
                 <Label
                   htmlFor="sizes"
@@ -635,7 +687,7 @@ function ProductForm() {
                     </>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           </Card>

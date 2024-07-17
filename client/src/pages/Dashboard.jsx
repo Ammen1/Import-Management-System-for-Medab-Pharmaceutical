@@ -16,7 +16,12 @@ import ProductList from '../features/product/components/ProductList';
 import UserOrdersPage from './UserOrdersPage';
 import SuppliersAndDistributers from '../Components/SuppliersAndDistributers';
 import DashSuppliers from '../Components/DashSuppliers';
-import Generating from '../Components/Generating';
+import Generating from "../Components/Generating"
+import CreateBrand from '../Components/CreateBrand';
+import CreateCategory from '../Components/CreateCategory';
+import DashMessage from '../Components/DashMessage';
+import DashMessageD from '../Components/DashMessageD';
+import DashMessageDs from '../Components/DashMessageDs';
 
 export default function Dashboard() {
   const location = useLocation();
@@ -40,16 +45,21 @@ export default function Dashboard() {
       {tab === 'dash' && <DashboardComp />}
       {tab === 'products' && <Products />}
       {tab === 'orders' && <Orders />}
-      {tab ==='addusers' && <AddUsers />}
-      {tab ==='add-product' && <AddProduct />}
-      {tab ==='productable' && <ProductTable />}
-      {tab ==='add-users' && <AddUsers/>}
-      {tab ==='list-product' && <ProductList/>}
-      {tab ==='my-orders' && <UserOrdersPage/>}
-      {tab ==='suppliers-and-distributers' && <SuppliersAndDistributers />}
-      {tab ==='manage' && <DashSuppliers />}
-      {tab ==='table-product' && <ProductTable />}
+      {tab=== 'addusers' && <AddUsers />}
+      {tab=== 'add-product' && <AddProduct />}
+      {tab=== 'productable' && <ProductTable />}
+      {tab=== 'add-users' && <AddUsers/>}
+      {tab=== 'list-product' && <ProductList/>}
+      {tab=== 'my-orders' && <UserOrdersPage/>}
+      {tab=== 'suppliers-and-distributers' && <SuppliersAndDistributers />}
+      {tab=== 'manage' && <DashSuppliers />}
+      {tab=== 'table-product' && <ProductTable />}
       {tab === 'generate' && <Generating />}
+      {tab === 'add-brand' && <CreateBrand />}
+      {tab === 'add-category' && <CreateCategory />}
+      {tab === 'messages' && <DashMessage />}
+      {tab === 'messagesd' && <DashMessageD />}
+      {tab === 'messagesds' && <DashMessageDs />}
     </div>
   );
 }

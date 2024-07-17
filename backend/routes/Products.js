@@ -1,5 +1,5 @@
 const express = require('express');
-const { createProduct, fetchAllProducts, fetchProductById, updateProduct,  generateProductReports } = require('../controller/Product');
+const { createProduct, fetchAllProducts, fetchProductById, updateProduct , generateProductReports, createAndSendSuppliers} = require('../controller/Product');
 const { Product } = require('../model/Product');
 
 const router = express.Router();
@@ -18,7 +18,8 @@ router.post('/', createProduct)
            }
            res.send('ok')
       })
-      router.post('/generate', generateProductReports);
+      // router.post('/generate', generateProductReports)
+      // router.post('/create-and-send-suppliers', createAndSendSuppliers);
 
       
 

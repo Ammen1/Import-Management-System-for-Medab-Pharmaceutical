@@ -25,6 +25,7 @@ import Logout from './features/auth/components/Logout';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ProtectedAdmin from './features/auth/components/ProtectedAdmin';
 import ProtectedSuppliers from './features/auth/components/ProtectedSuppliers';
+import Protectall from './features/auth/components/Projectall'
 import AdminHome from './pages/AdminHome';
 import AdminProductDetailPage from './pages/AdminProductDetailPage';
 import AdminProductFormPage from './pages/AdminProductFormPage';
@@ -35,7 +36,12 @@ import StripeCheckout from './pages/StripeCheckout';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import Dashboard from './pages/Dashboard';
 import Chat from "./pages/Chat/Chat";
+<<<<<<< HEAD
 
+=======
+import ProductList from './features/product/components/ProductList';
+// import Coffee from './pages/Coffee';
+>>>>>>> 3f45a5da4a651a58f6bc00bdc7c136b29891e1a6
 
 const options = {
   timeout: 5000,
@@ -46,9 +52,9 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <Protected>
+   
         <Home></Home>
-      </Protected>
+      
     ),
   },
   {
@@ -70,9 +76,17 @@ const router = createBrowserRouter([
   {
     path: '/cart',
     element: (
-      <Protected>
+      <Protectall>
         <CartPage></CartPage>
-      </Protected>
+      </Protectall>
+    ),
+  },
+  {
+    path: '/chat',
+    element: (
+      <Protectall>
+        <Chat></Chat>
+      </Protectall>
     ),
   },
   {
@@ -86,18 +100,26 @@ const router = createBrowserRouter([
   {
     path: '/checkout',
     element: (
-      <Protected>
+      <Protectall>
         <Checkout></Checkout>
-      </Protected>
+      </Protectall>
     ),
   },
   {
     path: '/product-detail/:id',
     element: (
-      <Protected>
+      <Protectall>
         <ProductDetailPage></ProductDetailPage>
-      </Protected>
+      </Protectall>
     ),
+  },
+  {
+    path: '/list-product',
+    element: (
+      <Protectall>
+      <ProductList></ProductList>
+      </Protectall>
+    )
   },
   {
     path: '/admin/product-detail/:id',
@@ -134,33 +156,33 @@ const router = createBrowserRouter([
   {
     path: '/order-success/:id',
     element: (
-      <Protected>
+      <Protectall>
         <OrderSuccessPage></OrderSuccessPage>{' '}
-      </Protected>
+      </Protectall>
     ),
   },
   {
     path: '/my-orders',
     element: (
-      <Protected>
+      <Protectall>
         <UserOrdersPage></UserOrdersPage>{' '}
-      </Protected>
+      </Protectall>
     ),
   },
   {
     path: '/profile',
     element: (
-      <Protected>
+      <Protectall>
         <UserProfilePage></UserProfilePage>{' '}
-      </Protected>
+      </Protectall>
     ),
   },
   {
     path: '/stripe-checkout/',
     element: (
-      <Protected>
+      <Protectall>
         <StripeCheckout></StripeCheckout>
-      </Protected>
+      </Protectall>
     ),
   },
   {
@@ -177,7 +199,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <Dashboard></Dashboard>,
+    element: (
+    <Protectall>
+    <Dashboard></Dashboard>
+    </Protectall>
+  ),
   },
   {
     path: '*',

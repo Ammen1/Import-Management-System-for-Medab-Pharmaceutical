@@ -33,9 +33,9 @@ function ProductTable({ products }) {
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Brand</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Regulatory Info</th>
+                {/* <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Regulatory Info</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product Specifications</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Safety Info</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Safety Info</th> */}
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Batch Number</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Expiry Date</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Edit</th>
@@ -50,11 +50,11 @@ function ProductTable({ products }) {
                     <img className="h-10 w-10 rounded-full" src={product.thumbnail} alt={product.title} />
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">{product.brand}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{product.totalItems}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{product.price}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{product.category}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{product.regulatoryInfo}</td>
+                  {/* <td className="px-6 py-4 whitespace-nowrap">{product.regulatoryInfo}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{product.productSpecifications}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{product.safetyInfo}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{product.safetyInfo}</td> */}
                   <td className="px-6 py-4 whitespace-nowrap">{product.batchNumber}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{new Date(product.expiryDate).toLocaleDateString()}</td>
 

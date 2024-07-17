@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { deleteUserAsync, fetchAllUsersAsync, selectUserInfo, selectUsers, updateUserAsync } from '../features/user/userSlice';
 import { Link } from 'react-router-dom'; // Import Link for navigation
+import { useNavigate } from 'react-router-dom';
 
 export default function DashSuppliers() {
   const userInfo = useSelector(selectUserInfo);
@@ -13,6 +14,7 @@ export default function DashSuppliers() {
   const dispatch = useDispatch();
   const users = useSelector(selectUsers);
   const [sort, setSort] = useState({});
+  const history = useNavigate()
 
   const handlePage = (page) => {
     setPage(page);
@@ -25,25 +27,27 @@ export default function DashSuppliers() {
 
   const handleDeleteUser = (id) => {
     dispatch(deleteUserAsync(id));
-    setShowModal(false); // Close the modal after deleting the user
+    setShowModal(false); 
   };
 
-  const handleEditUser = (user) => {
-    setEditedUser(user); // Set the selected user for editing
-    setShowModal(true); // Open the modal for editing
-  };
-
-  const handleUpdateUser = (e) => {
-    e.preventDefault();
+  const handleUpdateUser = () => {
     dispatch(updateUserAsync(editedUser));
-    setShowModal(false); // Close the modal after updating the user
+    setShowModal(false);
+    history('/dashboard?tab=manage');
+    window.location.reload(); 
   };
+  
+  const handleEditUser = (user) => {
+    setEditedUser(user); 
+    setShowModal(true); 
+   
+  };
+  
 
   useEffect(() => {
     dispatch(fetchAllUsersAsync());
   }, [dispatch, page, sort]);
-
-  // Filter users based on role (show only Suppliers and Distributors)
+  
   const filteredUsers = users.filter(user => user.role === 'supplier' || user.role === 'distributor');
 
   return (
