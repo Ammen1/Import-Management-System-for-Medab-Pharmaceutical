@@ -7,7 +7,7 @@ import { Button } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function AddUsers() {
-    const history = useNavigate()
+  const history = useNavigate()
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
   
@@ -184,7 +184,7 @@ export default function AddUsers() {
               type="submit"
               className="flex w-full justify-center rounded-md bg-gradient-to-b from-indigo-500 to-pink-600 via-purple-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign Up
+               Add users
               </Button>
             </div>
           </form>
