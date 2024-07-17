@@ -51,7 +51,7 @@ exports.createUser = async (req, res) => {
           // Set the JWT token as a cookie and send the response
           res
             .cookie('jwt', token, {
-              expires: new Date(Date.now() + 36000000000),
+              expires: new Date(Date.now() + 3600000),
               httpOnly: true,
             })
             .status(201)
@@ -74,7 +74,7 @@ exports.loginUser = async (req, res) => {
   const user = req.user;
   res
     .cookie('jwt', user.token, {
-      expires: new Date(Date.now() + 36000000000),
+      expires: new Date(Date.now() + 3600000),
       httpOnly: true,
     })
     .status(201)
